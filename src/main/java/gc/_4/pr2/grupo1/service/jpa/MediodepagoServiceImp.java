@@ -18,26 +18,31 @@ public class MediodepagoServiceImp implements IMediodepagoService {
 
 	@Override
 	public List<Mediodepago>mostrarTodos() {
-		
 		return repo.findAll();
 	}
 
 	@Override
 	public Mediodepago mostrarPorId(Long id) {
-	
 		return repo.findById(id).orElse(null);
 	}
 
 	@Override
 	public Mediodepago guardar(Mediodepago mediodepago) {
-		
 		return repo.save(mediodepago);
 	}
 
 	@Override
 	public void eliminarPorId(Long id) {
 		repo.deleteById(id);
-		
+	}
+	
+	@Override
+	public boolean existe(Long id) {
+		if(id == null) {
+			return false;
+		}else {
+			return repo.existsById(id);
+		}
 	}
 
 }

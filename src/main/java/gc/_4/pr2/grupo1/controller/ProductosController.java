@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import gc._4.pr2.grupo1.dto.ResponseDTO;
 import gc._4.pr2.grupo1.entity.Productos;
 import gc._4.pr2.grupo1.service.IProductosService;
 
@@ -23,30 +24,32 @@ public class ProductosController {
 	private IProductosService service;
 	
 	@GetMapping("/productos")
-	public List<Productos> mostrarTodosProductos(){
-		return service.mostrarTodos();
+	public ResponseDTO<List<Productos>> mostrarTodosProductos(){
+		return service.mostrarTodos().isEmpty()?new ResponseDTO<>(false,"Listado Vacio",service.mostrarTodos()):new ResponseDTO<>(true,"Listado",service.mostrarTodos());	
 	}
 	
 	
 	@GetMapping("/productos/{id}")
-	Productos mostrarProductoId(@PathVariable("id") Long id){
-		return service.mostrarPorId(id);
+	public ResponseDTO<?> mostrarProductoId(@PathVariable("id") Long id){
+		return service.existe(id)?new ResponseDTO<>(true,"Encontrado",service.mostrarPorId(id)):new ResponseDTO<>(false,"No Encontrado");
 	}
 	
-	
 	@PostMapping("/productos")
-	Productos crearNuevoProducto(@RequestBody Productos productosDesdeElServicio){
-		return service.guardar(productosDesdeElServicio);
+	public ResponseDTO<?> crearNuevoProducto(@RequestBody Productos productosDesdeElServicio){
+		return service.existe(productosDesdeElServicio.getId())?new ResponseDTO<>(false,"Este elemento ya existe"):new ResponseDTO<>(true,"Guardado",service.guardar(productosDesdeElServicio));
 	}
 	
 	@PutMapping("/productos")
-	Productos actualizarNuevoProducto(@RequestBody Productos productosDesdeElServicio){
-		return service.guardar(productosDesdeElServicio);
+	public ResponseDTO<?> actualizarNuevoProducto(@RequestBody Productos productosDesdeElServicio){
+		return service.existe(productosDesdeElServicio.getId())?new ResponseDTO<>(true,"Modificado",service.guardar(productosDesdeElServicio)):new ResponseDTO<>(false,"Este elemento no existe, utilice el POST");
 	}
 
 	@DeleteMapping("/productos/{id}")
-	void borrarProducto(@PathVariable("id") Long id){
-		service.eliminarPorId(id);
+	public ResponseDTO<?> borrarProducto(@PathVariable("id") Long id){
+		if(service.existe(id)) {
+			service.eliminarPorId(id);
+		}
+		return service.existe(id)?new ResponseDTO<>(true,"Eliminado"):new ResponseDTO<>(false,"Este elemento no existe, No se puede eliminar");
 	}
 	
 	

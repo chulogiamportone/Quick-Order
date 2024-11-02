@@ -11,6 +11,4 @@ public interface IFacturaService {
 	public Factura guardar(Factura factura);
 	public void eliminarPorId(Long id);
 	public boolean existe(Long id);
-
-
 }

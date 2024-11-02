@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import gc._4.pr2.grupo1.dto.ResponseDTO;
 import gc._4.pr2.grupo1.entity.Empleado;
 import gc._4.pr2.grupo1.service.IEmpleadoService;
 
@@ -21,32 +22,31 @@ public class EmpleadoController {
 	private IEmpleadoService service;
 	
 	@GetMapping("/empleado")
-	public List<Empleado> mostrarTodosEmpleados(){
-		System.out.print("pase");
-
-		return service.mostrarTodos();
+	public ResponseDTO<List<Empleado>> mostrarTodosEmpleados(){
+		return service.mostrarTodos().isEmpty()?new ResponseDTO<>(false,"Listado Vacio",service.mostrarTodos()):new ResponseDTO<>(true,"Listado",service.mostrarTodos());	
 	}
 	
 	@GetMapping("/empleado/{id}")
-	public Empleado mostrarEmpleadoId(@PathVariable("id") Long id){
-		return service.mostrarPorId(id);
+	public ResponseDTO<?> mostrarEmpleadoId(@PathVariable("id") Long id){
+		return service.existe(id)?new ResponseDTO<>(true,"Encontrado",service.mostrarPorId(id)):new ResponseDTO<>(false,"No Encontrado");
 	}
 	
 	@PostMapping("/empleado")
-	Empleado crearNuevoEmpleado(@RequestBody Empleado empleadoServicio){
-
-		return service.guardar(empleadoServicio);
+	public ResponseDTO<?> crearNuevoEmpleado(@RequestBody Empleado empleadoServicio){
+		return service.existe(empleadoServicio.getId())?new ResponseDTO<>(false,"Este elemento ya existe"):new ResponseDTO<>(true,"Guardado",service.guardar(empleadoServicio));
 	}
 	
 	@PutMapping("/empleado")
-	Empleado actualizarEmpleado(@RequestBody Empleado empleadoServicio){
-	
-		return service.guardar(empleadoServicio);
+	public ResponseDTO<?> actualizarEmpleado(@RequestBody Empleado empleadoServicio){
+		return service.existe(empleadoServicio.getId())?new ResponseDTO<>(true,"Modificado",service.guardar(empleadoServicio)):new ResponseDTO<>(false,"Este elemento no existe, utilice el POST");
 	}
 	
 	@DeleteMapping("/empleado/{id}")
-	void borrarEmpleado(@PathVariable("id") Long id){
-		service.eliminarPorId(id);
+	public ResponseDTO<?> borrarEmpleado(@PathVariable("id") Long id){
+		if(service.existe(id)) {
+			service.eliminarPorId(id);
+		}
+		return service.existe(id)?new ResponseDTO<>(true,"Eliminado"):new ResponseDTO<>(false,"Este elemento no existe, No se puede eliminar");
 	}
 
 }

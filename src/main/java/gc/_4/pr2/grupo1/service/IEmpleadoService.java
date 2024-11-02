@@ -9,5 +9,6 @@ public interface IEmpleadoService {
 	public Empleado mostrarPorId(Long id);
 	public Empleado guardar(Empleado empleado);
 	public void eliminarPorId(Long id);
+	boolean existe(Long id);
 
 }

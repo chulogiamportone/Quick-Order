@@ -25,6 +25,12 @@ public class Empleado {
     @OneToMany(mappedBy = "empleado")
     private List<Pedidos> pedidos;
 	
+	public Long getId() {
+		return Id;
+	}
+	public void setId(Long id) {
+		Id = id;
+	}
 	public String getNombre() {
 		return nombre;
 	}
