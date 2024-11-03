@@ -2,8 +2,6 @@ $(document).ready(function() {
 
 	const dataJson = localStorage.getItem('USUARIOS');
 	const data = JSON.parse(dataJson);
-	alert(data.usuario)
-	cargarPedidosMozo()
 	switch (data.usuario) {
 		case "MOZO":
 			cargarPedidosMozo();
