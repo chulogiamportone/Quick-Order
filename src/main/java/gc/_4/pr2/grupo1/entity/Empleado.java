@@ -17,7 +17,8 @@ public class Empleado {
 	private Long Id;
 	private String nombre;
 	private String turno;
-	private String cargo;
+	public enum Cargo{MOZO,COCINA,CAJA};
+	private Cargo cargo;
 	private String contacto;
 	private String usuario;
 	private String contraseña;
@@ -45,10 +46,11 @@ public class Empleado {
 	public void setTurno(String turno) {
 		this.turno = turno;
 	}
-	public String getCargo() {
+	
+	public Cargo getCargo() {
 		return cargo;
 	}
-	public void setCargo(String cargo) {
+	public void setCargo(Cargo cargo) {
 		this.cargo = cargo;
 	}
 	public String getContacto() {
