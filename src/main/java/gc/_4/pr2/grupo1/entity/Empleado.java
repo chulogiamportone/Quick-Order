@@ -19,6 +19,8 @@ public class Empleado {
 	private String turno;
 	private String cargo;
 	private String contacto;
+	private String usuario;
+	private String contraseña;
 	
 	@OneToMany(mappedBy = "empleado")
 	private List<Factura> factura;
@@ -54,6 +56,18 @@ public class Empleado {
 	}
 	public void setContacto(String contacto) {
 		this.contacto = contacto;
+	}
+	public String getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
+	}
+	public String getContraseña() {
+		return contraseña;
+	}
+	public void setContraseña(String contraseña) {
+		this.contraseña = contraseña;
 	}
 	
 	
