@@ -1,14 +1,14 @@
 package gc._4.pr2.grupo1.dto;
 
 public class ResponseDTO<T> {
-	private int code;
+	private boolean status; 
 	private String message;
 	private T data;
-	public int getCode() {
-		return code;
+	public boolean isStatus() {
+		return status;
 	}
-	public void setCode(int code) {
-		this.code = code;
+	public void setStatus(boolean status) {
+		this.status = status;
 	}
 	public String getMessage() {
 		return message;
@@ -22,7 +22,21 @@ public class ResponseDTO<T> {
 	public void setData(T data) {
 		this.data = data;
 	}
-	
-	
+	public ResponseDTO() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public ResponseDTO(boolean status, String message, T data) {
+		super();
+		this.status = status;
+		this.message = message;
+		this.data = data;
+	}
+	public ResponseDTO(boolean status, String message) {
+		super();
+		this.status = status;
+		this.message = message;
+		this.data = null;
+	}
 	
 }

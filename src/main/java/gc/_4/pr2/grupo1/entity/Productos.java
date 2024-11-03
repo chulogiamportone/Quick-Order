@@ -20,10 +20,10 @@ public class Productos {
 	private Long id;
 	
 	private String nombre;
-	private String Descripción;
+	private String Descripcion;
 	private int Precio;
 	private String Disponibilidad;
-	private String categoría;
+	private String categoria;
 	private String Ingredientes;
 	
 
@@ -48,12 +48,7 @@ public class Productos {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public String getDescripción() {
-		return Descripción;
-	}
-	public void setDescripción(String descripción) {
-		Descripción = descripción;
-	}
+	
 	public int getPrecio() {
 		return Precio;
 	}
@@ -66,11 +61,18 @@ public class Productos {
 	public void setDisponibilidad(String disponibilidad) {
 		Disponibilidad = disponibilidad;
 	}
-	public String getCategoría() {
-		return categoría;
+	
+	public String getDescripcion() {
+		return Descripcion;
 	}
-	public void setCategoría(String categoría) {
-		this.categoría = categoría;
+	public void setDescripcion(String descripcion) {
+		Descripcion = descripcion;
+	}
+	public String getCategoria() {
+		return categoria;
+	}
+	public void setCategoria(String categoria) {
+		this.categoria = categoria;
 	}
 	public String getIngredientes() {
 		return Ingredientes;

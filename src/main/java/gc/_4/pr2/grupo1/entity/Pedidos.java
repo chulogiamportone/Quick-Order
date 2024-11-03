@@ -16,7 +16,7 @@ public class Pedidos {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
-	
+	private Long numero;
 	private String FechyHoraDePedido;
 	private String FechyHoraDeEntrega;
 	private String Estado;
@@ -45,6 +45,12 @@ public class Pedidos {
 		this.id = id;
 	}
 	
+	public Long getNumero() {
+		return numero;
+	}
+	public void setNumero(Long numero) {
+		this.numero = numero;
+	}
 	public String getFechyHoraDePedido() {
 		return FechyHoraDePedido;
 	}

@@ -7,7 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import java.util.List;
+
 
 @Entity
 public class Empleado {
@@ -17,14 +17,23 @@ public class Empleado {
 	private Long Id;
 	private String nombre;
 	private String turno;
-	private String cargo;
+	public enum Cargo{MOZO,COCINA,CAJA};
+	private Cargo cargo;
 	private String contacto;
+	private String usuario;
+	private String contraseña;
 	
 	@OneToMany(mappedBy = "empleado")
 	private List<Factura> factura;
     @OneToMany(mappedBy = "empleado")
     private List<Pedidos> pedidos;
 	
+	public Long getId() {
+		return Id;
+	}
+	public void setId(Long id) {
+		Id = id;
+	}
 	public String getNombre() {
 		return nombre;
 	}
@@ -37,10 +46,11 @@ public class Empleado {
 	public void setTurno(String turno) {
 		this.turno = turno;
 	}
-	public String getCargo() {
+	
+	public Cargo getCargo() {
 		return cargo;
 	}
-	public void setCargo(String cargo) {
+	public void setCargo(Cargo cargo) {
 		this.cargo = cargo;
 	}
 	public String getContacto() {
@@ -48,6 +58,18 @@ public class Empleado {
 	}
 	public void setContacto(String contacto) {
 		this.contacto = contacto;
+	}
+	public String getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
+	}
+	public String getContraseña() {
+		return contraseña;
+	}
+	public void setContraseña(String contraseña) {
+		this.contraseña = contraseña;
 	}
 	
 	

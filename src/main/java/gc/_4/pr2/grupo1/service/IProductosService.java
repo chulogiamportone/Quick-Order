@@ -9,5 +9,6 @@ public interface IProductosService {
 	public Productos mostrarPorId(Long id);
 	public Productos guardar(Productos productos);
 	public void eliminarPorId(Long id);
+	boolean existe(Long id);
 
 }

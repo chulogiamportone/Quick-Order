@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import gc._4.pr2.grupo1.dto.ResponseDTO;
 import gc._4.pr2.grupo1.entity.Mediodepago;
 import gc._4.pr2.grupo1.service.IMediodepagoService;
 
@@ -22,32 +23,30 @@ public class MediodepagoController {
 	private IMediodepagoService service;
 	
 	@GetMapping("/mediodepago")
-	public List<Mediodepago> mostrarTodosMediodepago(){
-		
-		return service.mostrarTodos();
+	public ResponseDTO<List<Mediodepago>> mostrarTodosMediodepago(){
+		return service.mostrarTodos().isEmpty()?new ResponseDTO<>(false,"Listado Vacio",service.mostrarTodos()):new ResponseDTO<>(true,"Listado",service.mostrarTodos());	
 	}
 	
 	@GetMapping("/mediodepago/{id}")
-	Mediodepago mostrarMediodepagoId(@PathVariable("id") Long id){
-		
-		return service.mostrarPorId(id);
+	public ResponseDTO<?> mostrarMediodepagoId(@PathVariable("id") Long id){
+		return service.existe(id)?new ResponseDTO<>(true,"Encontrado",service.mostrarPorId(id)):new ResponseDTO<>(false,"No Encontrado");
 	}
 	
 	@PostMapping("/mediodepago")
-	Mediodepago crearNuevoMediodepago(@RequestBody Mediodepago MediodepagoDesdeElServicio){
-		
-		Mediodepago mediodepagoDesdeElServicio = null;
-		return service.guardar(mediodepagoDesdeElServicio);
+	public ResponseDTO<?> crearNuevoMediodepago(@RequestBody Mediodepago MediodepagoDesdeElServicio){
+		return service.existe(MediodepagoDesdeElServicio.getId())?new ResponseDTO<>(false,"Este elemento ya existe"):new ResponseDTO<>(true,"Guardado",service.guardar(MediodepagoDesdeElServicio));
 	}
 	
 	@PutMapping("/mediodepago")
-	Mediodepago actualizarNuevoMediodepago(@RequestBody Mediodepago MediodepagoDesdeElServicio){
-		
-		return service.guardar(MediodepagoDesdeElServicio);
+	public ResponseDTO<?> actualizarNuevoMediodepago(@RequestBody Mediodepago MediodepagoDesdeElServicio){
+		return service.existe(MediodepagoDesdeElServicio.getId())?new ResponseDTO<>(true,"Modificado",service.guardar(MediodepagoDesdeElServicio)):new ResponseDTO<>(false,"Este elemento no existe, utilice el POST");
 	}
 	
 	@DeleteMapping("/mediodepago/{id}")
-	void borrarMediodepago(@PathVariable("id") Long id){
-		service.eliminarPorId(id);
+	public ResponseDTO<?> borrarMediodepago(@PathVariable("id") Long id){
+		if(service.existe(id)) {
+			service.eliminarPorId(id);
+		}
+		return service.existe(id)?new ResponseDTO<>(true,"Eliminado"):new ResponseDTO<>(false,"Este elemento no existe, No se puede eliminar");
 	}
 }
