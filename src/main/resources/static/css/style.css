@@ -59,7 +59,7 @@ body {
     background-color: #fff;
     background-clip: border-box;
     border: 1px solid #e3e6f0;
-    border-radius: 0.35rem;
+    border-radius: 10px;
 }
 .card-body {
     flex: 1 1 auto;
@@ -70,15 +70,23 @@ body {
     .col-lg-6 {
         flex: 0 0 50%;
         max-width: 50%;
+        padding-left: 4%;
         
     }
+}
+.logimagen{
+	max-height: 70%;
+	margin-top: 5%;
+    border-radius: 10px;
 }
 .bg-login-image {
         background: url(https://source.unsplash.com/K4mSJ7kc0As/600x800);
     	background-position: center;
     	background-size: cover;	
     }
-
+.logo{
+	max-height: 80%;
+}
 .text-center {
     text-align: center !important;
     width: 80%;
