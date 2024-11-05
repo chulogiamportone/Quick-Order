@@ -33,9 +33,11 @@ async function cargarPedidosMozo() {
 	let pasada = 0;
 	for (let pedido of pedidos.data) {
 		pasada++
-		let usuarioHtml = '<div class="cardt ">' +
+		let usuarioHtml =								
+		
+		 '<div class="cardt ">' +
 			'<a  onclick="javascript: mostrarPopup('+pedido.id+');" class="d-card cardt-header " role="button">' +
-			'<h6 class="m-0 font-weight-bold text-primary">Pedido N°' + pedido.numero + '</h6></a></div>'
+			'<h4 class="m-0 font-weight-bold text-primary">Pedido N°'+pedido.numero+'</h4></a></div>'
 		listadoHtml += usuarioHtml;
 	}
 	document.getElementById("Pedidos").innerHTML = listadoHtml;
@@ -58,7 +60,7 @@ async function cargarPedidosCaja() {
 		pasada++
 		let usuarioHtml = '<div class="cardt ">' +
 			'<a  onclick="javascript: mostrarPopup('+pedido.id+');" class="d-card cardt-header " role="button">' +
-			'<h6 class="m-0 font-weight-bold text-primary">Pedido N°' + pedido.numero + '</h6></a></div>'
+			'<h4 class="m-0 font-weight-bold text-primary">Pedido N°'+pedido.numero+'</h4></a></div>'
 		listadoHtml += usuarioHtml;
 	}
 	document.getElementById("Pedidos").innerHTML = listadoHtml;
@@ -78,7 +80,7 @@ async function cargarPedidosCocina() {
 		pasada++
 		let usuarioHtml = '<div class="cardt ">' +
 			'<a  onclick="javascript: mostrarPopup('+pedido.id+');" class="d-card cardt-header " role="button">' +
-			'<h6 class="m-0 font-weight-bold text-primary">Pedido N°' + pedido.numero + '</h6></a></div>'
+			'<h4 class="m-0 font-weight-bold text-primary">Pedido N°'+pedido.numero+'</h4></a></div>'
 		listadoHtml += usuarioHtml;
 	}
 	document.getElementById("Pedidos").innerHTML = listadoHtml;
@@ -86,8 +88,30 @@ async function cargarPedidosCocina() {
 }
 
 
-function mostrarPopup(a) {
+async function mostrarPopup(a) {
+	
+	const response = await fetch('pedidos', {
+		method: 'GET',
+		headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+
+	});
+	const pedidos = await response.json();
 	document.getElementById("popup2").style.display = "block";
+	
+	for (let pedido of pedidos.data) {
+		if (pedido.id==a){
+			document.getElementById("popup2").innerHTML='<div class="pop-titulo"><h2 class="pop-pedido">Pedido N°'+pedido.id+'</h2>'+	    	
+			'<h4 class="pop-estado">'+pedido.estado+'</h4></div><h4 class="titulo-prod">Productos</h4><div class="cargar-prod">	'+	
+			'<h4 class="prod">titulo producto</h4><div class="detalle-prod"><h6 class="detalle">detalle</h6>'+   				
+			'<h6 class="precio">precio</h6></div></div><div class="titulo-comentario"><div class="comentario">'+			
+			'</div></div><div class="titulo-prod"><button id="boton-cerrar2" onclick="javascript: cerrarPopup();">Cerrar'+
+			'</button></div>'
+		}
+		
+		
+		
+	
+	}
 	
 	
 }

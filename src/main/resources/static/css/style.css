@@ -45,7 +45,32 @@
 
 
 }
-
+.pop-titulo{
+	display: flex;
+}
+.pop-pedido{
+	color: #F28705;
+	    width: 70%;
+}
+.pop-estado{
+	margin-top: 5%;
+}
+.prod{
+	color: #6e707e;
+	margin: 0%;
+}
+.detalle-prod{
+	display: flex;
+}
+.detalle{
+	width: 70%;
+	color: #858796;
+	margin-top:10px
+}
+.precio{
+	color: #858796;
+	margin-top:10px
+}
 /*BOTON FLOTANTE DERECHA*/
 .btn-flotante {
 	font-size: 16px;
