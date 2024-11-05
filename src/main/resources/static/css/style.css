@@ -1,3 +1,19 @@
+/*POPUP LOGIN*/
+.popupc3 {
+	position: fixed;
+	top: 30%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 40%;
+	height: 15%;
+	background-color: #fff;
+	border: 2px solid #ddd;
+	padding: 20px;
+
+
+}
+
+
 /*POPUP CARRITO*/
 .popupc {
 	position: fixed;
@@ -9,7 +25,7 @@
 	background-color: #fff;
 	border: 1px solid #ddd;
 	padding: 20px;
-
+	
 
 }
 

@@ -1,7 +1,7 @@
 inputs = document.querySelectorAll('input'); //Tomo todos los inputs del html  
 btn = document.getElementById('botonLogin');
 
-var user=null;
+var user = null;
 
 expresiones = { //objeto con mis expresiones regulares
 	mail: /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/,
@@ -30,12 +30,12 @@ async function avanzar() {
 	for (let empleado of empleados.data) {
 		if (empleado.usuario == document.getElementById("mail").value && empleado.contraseña == document.getElementById("contraseña").value) {
 			validaduyc = true;
-			user=empleado.cargo;
+			user = empleado.cargo;
 		}
 	}
-	const data = { usuario: user};
+	const data = { usuario: user };
 	localStorage.setItem('USUARIOS', JSON.stringify(data));
-	validaduyc == true ? location.href = "templates.html" : alert('error');
+	validaduyc == true ? location.href = "templates.html" : mostrarPopup2();
 
 }
 
@@ -54,4 +54,15 @@ const claseT = (a) => {
 	document.getElementById(a).classList.add('form-control');
 	document.getElementById(a).classList.remove('form_error');
 
+}
+
+function mostrarPopup2() {
+	let pop = document.getElementById("popup2")
+	pop.style.display = "block";
+	pop.innerHTML = '<h6 class="m-0 font-weight-bold text-primary">EL USUARIO O LA CONTRASEÑA SON INCORRECTOS</h6>' +
+		'<button id="boton-cerrar2" onclick="javascript: cerrarPopup2();">Cerrar</button>'
+}
+
+function cerrarPopup2() {
+	document.getElementById("popup2").style.display = "none";
 }
