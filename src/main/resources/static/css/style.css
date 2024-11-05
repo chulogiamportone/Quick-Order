@@ -378,10 +378,9 @@ form.user .btn-user {
 	box-shadow: 0 .15rem 1.75rem 0 rgba(58, 59, 69, .15) !important;
 }
 
-.cardt  {
+.cardt .cardt-header[data-toggle=collapse] {
 	text-decoration: none;
 	position: relative;
-	border-radius: .35rem;
 }
 
 .card-header:first-child {
@@ -396,11 +395,41 @@ form.user .btn-user {
 	padding-bottom: 1rem !important;
 }
 
+.cardt-header {
+	margin-bottom: 0;
+	background-color: #f8f9fc;
+	border-bottom: 1px solid #e3e6f0;
+}
+
+.cardt-body {
+	flex: 1 1 auto;
+	min-height: 1px;
+	padding: 1.25rem;
+}
+
+*,
+::after,
+::before {
+	box-sizing: border-box;
+}
+
+.collapse:not(.show) {
+	display: none;
+}
+
+.collapsing {
+	position: relative;
+	height: 0;
+	overflow: hidden;
+	transition: height .15s ease
+}
 
 
+.cardt .cardt-header[data-toggle=collapse].collapsed {
+	border-radius: .35rem;
+}
 
-
-.cardt  {
+.cardt .cardt-header[data-toggle=collapse]::after {
 	position: absolute;
 	right: 0;
 	top: 0;
