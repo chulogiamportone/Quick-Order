@@ -28,7 +28,7 @@
 			<div class="box-templates">
 
 				<div class="card shadow-lg">
-					<div class="card-body2" id="Carrito">
+					<div class="card-body3" id="Carrito">
 
 
 
@@ -45,12 +45,15 @@
 
 </body>
 <footer>
-	<button id="boton-abrir">Carrito</button>
+
+	<a class="btn-flotante" id="boton-abrir">Carrito</a>
+	<a href="templates.html" class="btn-flotante2">Cerrar</a>
 	<div id="popup" class="popupc" style="display:none;">
-		<!-- contenido del popup -->
-		<h2>Verificar Pedido</h2>
-		<p>Descripción del popup</p>
+
 		<button id="boton-cerrar">Cerrar</button>
+	</div>
+	<div id="popup2" class="popupc2" style="display:none;">
+		<button id="boton-cerrar2" onclick="javascript: cerrarPopup2();">Cerrar</button>
 	</div>
 </footer>
 
