@@ -1,7 +1,7 @@
 $(document).ready(function() {
 	cargarProductos()
 });
-
+var cProducto=0;
 
 async function cargarProductos() {
 	const response = await fetch('productos', {
@@ -10,9 +10,17 @@ async function cargarProductos() {
 	});
 	const productos = await response.json();
 	let listadoHtml = '';
-	let pasada=1;
+	let pasada = 0;
 	for (let producto of productos.data) {
-		let usuarioHtml = '<div class="cardt "><a href="#collapseCardT'+pasada+'" class="d-card cardt-header collapsed" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapseCardT'+pasada+'"><h6 class="m-0 font-weight-bold text-primary">' + producto.nombre + '</h6></a><div class="collapse " id="collapseCardT'+pasada+'"><div class="cardt-body">'+producto.descripcion+producto.precio+'</div></div></div><tr><td>'
+		let usuarioHtml = '<div class="colapin2"><div class="cardt ">' +
+			'<a  onclick="javascript: mostrarPopup2('+producto.id+');" class="d-card cardt-header " role="button">' +
+			'<h6 class="m-0 font-weight-bold text-primary">Pedido N°' + producto.numero+'.                       $'+
+			producto.precio + '</h6></a></div>'+
+			'<div class="card__counter"><button class="card__btn" onclick="javascript: menos('+producto.id+');" id="-'+
+			pasada+'">-</button><div class="card__counter-score">'+
+			cProducto+'</div><button  class="card__btn card__btn-plus" onclick="javascript: mas('+producto.id+');" id="+'+
+			pasada+'">+</button></div></div>'
+			
 		listadoHtml += usuarioHtml;
 		pasada++;
 	}
@@ -20,16 +28,40 @@ async function cargarProductos() {
 }
 
 function mostrarPopup() {
-  var popup = document.getElementById("popup");
-  popup.style.display = "block";
+	document.getElementById("popup").style.display = "block";
+	document.getElementById("boton-abrir").style.display= "none";
 }
 
 function cerrarPopup() {
-  var popup = document.getElementById("popup");
-  popup.style.display = "none";
+	document.getElementById("popup").style.display = "none";
+	document.getElementById("boton-abrir").style.display= "block";
 }
 
-var botonAbrir = document.getElementById("boton-abrir");
-botonAbrir.addEventListener("click", mostrarPopup);
-var botonCerrar = document.getElementById("boton-cerrar");
-botonCerrar.addEventListener("click", cerrarPopup);
+
+
+function mostrarPopup2(a) {
+	document.getElementById("popup2").style.display = "block";
+}
+
+function cerrarPopup2() {
+	document.getElementById("popup2").style.display = "none";
+}
+
+document.getElementById("boton-abrir").addEventListener("click", mostrarPopup);
+document.getElementById("boton-cerrar").addEventListener("click", cerrarPopup);
+
+
+function menos(a) {
+	alert('-')
+}
+
+function mas(a) {
+	alert('+')
+}
+
+
+
+
+
+
+
