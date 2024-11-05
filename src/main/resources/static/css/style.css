@@ -24,6 +24,8 @@
 	background-color: #fff;
 	border: 1px solid #ddd;
 	padding: 20px;
+	border-radius: .35rem;
+	box-shadow: 0 .15rem 1.75rem 0 rgba(58, 59, 69, .15) !important;
 
 
 }
@@ -190,7 +192,7 @@ body {
 	font-size: 1rem;
 	font-weight: 400;
 	line-height: 1.5;
-	color: #858796;
+	
 	text-align: left;
 	background-color: #fff;
 	display: flex;
@@ -364,7 +366,7 @@ form.user .btn-user {
 /*DIV DE CARDS*/
 .cardt {
 	max-width: 460px;
-	width: 40%;
+	width: 30%;
 	position: relative;
 	display: flex;
 	flex-direction: column;
@@ -376,6 +378,10 @@ form.user .btn-user {
 	border-radius: .35rem;
 	margin: 1.5rem !important;
 	box-shadow: 0 .15rem 1.75rem 0 rgba(58, 59, 69, .15) !important;
+	transition: 0.9s;
+}
+.cardt:hover{
+	background-color: #F28705;
 }
 
 .cardt .cardt-header[data-toggle=collapse] {
@@ -393,12 +399,16 @@ form.user .btn-user {
 	display: block !important;
 	padding-top: 1rem !important;
 	padding-bottom: 1rem !important;
+	margin-left: 10%;
+	color: #858796;
 }
 
+.d-card:hover{
+	color: rgb(255, 255, 255);
+}
 .cardt-header {
 	margin-bottom: 0;
-	background-color: #f8f9fc;
-	border-bottom: 1px solid #e3e6f0;
+	
 }
 
 .cardt-body {
@@ -439,6 +449,9 @@ form.user .btn-user {
 	color: #d1d3e2;
 }
 
+.cardt .cardt-header:hover{
+	color: rgb(255, 255, 255);
+}
 [role=button] {
 	cursor: pointer;
 }
