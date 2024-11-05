@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Pedidos - Mozo </title>
+    <link rel="stylesheet" href="css/vistamozo.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="menu-icon" onclick="toggleMenu()"> ☰ Menú </div>
+        <img src="images/QO-Logo.png" alt="Logo" class="logo">
+		<div class="username"> <strong> Mozo 1 </strong> </div>
+    </nav>
+
+    <!-- Menu desplegable -->
+    <div class="menu-desplegable" id="menuDesplegable">
+        <a href="login.html"> Inicio </a>
+        <a href="#"> Productos </a>
+        <a href="#"> Cerrar Sesión </a>
+    </div>
+
+    <!-- Contenido principal -->
+    <main class="contenedor-principal">
+        <h2> Tomar Pedido </h2>
+
+        <div id="product-list">
+			<div class="product-item">
+				<span>Producto 1</span>
+				<div class="cantidad">
+                    <button onclick="updateQuantity('Producto 1', -1)"> − </button>
+				    <span id="quantity-Producto 1">0</span>
+				    <button onclick="updateQuantity('Producto 1', 1)"> + </button>
+                </div>
+			</div>
+        </div>
+    </main>
+
+    <footer>
+        <!-- Abrir popup -->
+        <button onclick="mostrarPopup()"> Ver pedido </button>
+
+        <!-- popup -->
+        <div class="div-popup" id="popup">
+            <h2> Verificar pedido </h2>
+            <div id="resumenOrden">
+                <div class="product-item">
+                    <span>Producto 1</span>
+                    <span id="quantity-Producto 1">0</span>
+                </div>
+            </div>
+            <button onclick="confirmOrder()"> Confirmar Pedido </button>
+            <button onclick="cerrarPopup()"> Cerrar </button>
+        </div>
+    </footer>
+</body>
+
+<script src="js/vistamozo.js"></script>
+</html>
