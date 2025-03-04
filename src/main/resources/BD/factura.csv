@@ -1,0 +1,5 @@
+id,FechaYHora,detalle,total,empleado_id,pedidos_id,impuestosAplicados
+1,"2024-12-10 10:00","Compra de insumos",5000,1,1,15.5
+2,"2024-12-10 10:00","Compra de insumos",5000,1,NULL,15.5
+3,"2024-12-10 10:00","Compra de insumos",5000,1,NULL,0
+4,NULL,"Compra de insumos",5000,1,NULL,15.5

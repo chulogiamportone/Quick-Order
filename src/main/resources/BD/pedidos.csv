@@ -1,0 +1,6 @@
+id,Estado,FechyHoraDeEntrega,FechyHoraDePedido,TiempoEstimado,numero,empleado_id
+1,pendiente,NULL,NULL,NULL,12,NULL
+2,NULL,NULL,NULL,NULL,2,NULL
+3,NULL,NULL,NULL,NULL,3,NULL
+4,NULL,NULL,NULL,NULL,4,NULL
+5,NULL,NULL,NULL,NULL,5,NULL

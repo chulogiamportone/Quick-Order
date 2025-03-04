@@ -1,0 +1,16 @@
+id,Descripcion,Disponibilidad,Ingredientes,Precio,categoria,nombre,Descripción,categoría
+1,"Ternera al disco con salsa especial",Disponible,"Ternera, cebolla, ajo, perejil",32000,Carnes,"Osobuco al Disco",NULL,NULL
+2,"Lomo de ternera veteado a la parrilla",Disponible,"Ternera, sal, pimienta",38000,Carnes,"Lomo Veteado",NULL,NULL
+3,"Lomo de chorizo argentino",Disponible,"Chorizo, pan",28000,Carnes,"Lomo de Chorizo",NULL,NULL
+4,"Fideos con salsa de margarita y queso",Disponible,"Fideos, salsa, queso",22000,Pastas,"Fideos a la Margarita",NULL,NULL
+5,"Papas fritas crujientes",Disponible,"Papas, aceite",15000,Acompañamientos,"Papas Fritas",NULL,NULL
+6,"Calamares fritos",Disponible,"Calamares, aceite",25000,Mariscos,Rabas,NULL,NULL
+7,"Chorizo a la parrilla con pan",Disponible,"Chorizo, pan",20000,Carnes,Choripan,NULL,NULL
+8,"Milanesa de ternera empanada",Disponible,"Ternera, pan rallado",30000,Carnes,"Milanesa de Ternera",NULL,NULL
+9,"Ensalada de lechuga con tomate y cebolla",Disponible,"Lechuga, tomate, cebolla",18000,Ensaladas,"Ensalada de Lechuga",NULL,NULL
+10,"Churrasco de ternera a la parrilla",Disponible,"Ternera, sal, pimienta",35000,Carnes,Churrasco,NULL,NULL
+11,"Tortilla de papas con cebolla y ajo",Disponible,"Papas, cebolla, ajo",22000,Acompañamientos,"Tortilla de Papas",NULL,NULL
+12,"Canelones de carne con salsa y queso",Disponible,"Carne, salsa, queso",28000,Pastas,"Canelones de Carne",NULL,NULL
+13,"Empanadas de carne",Disponible,"Carne, pan",20000,Acompañamientos,"Empanadas de Carne",NULL,NULL
+14,"Pizza de muzarella con salsa y orégano",Disponible,"Muzarella, salsa, orégano",25000,Pizzas,"Pizza de Muzarella",NULL,NULL
+15,"Flan de vainilla con caramelo",Disponible,"Vainilla, caramelo",18000,Postres,"Flan de Vainilla",NULL,NULL

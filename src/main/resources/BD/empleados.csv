@@ -1,0 +1,12 @@
+Id,cargo,contacto,contraseña,nombre,turno,usuario,activo
+1,1,123456789,Juanito123,"Juan Pérez",mañana,jperez@admin.com,0
+2,2,987654321,Maria1980*,"María Rodríguez",tarde,mrodriguez@staff.com,0
+3,0,555555555,Carlitos90!,"Carlos Gómez",noche,cgomez@support.com,0
+4,1,666666666,Anita2000*,"Ana López",mañana,alopez@admin.com,0
+5,2,333333333,Pedrito88!,"Pedro Martínez",tarde,pmartinez@staff.com,0
+6,0,444444444,Sofia2015*,"Sofía Hernández",noche,shernandez@support.com,0
+7,1,222222222,Luisito197,"Luis García",mañana,lgarcia@admin.com,0
+8,2,888888888,Elena1985!,"Elena Díaz",tarde,ediaz@staff.com,0
+9,0,NULL,a,NULL,as,a@h.com,0
+10,1,NULL,b,NULL,bs,a@h.com,0
+11,2,NULL,c,NULL,cs,a@h.com,0
