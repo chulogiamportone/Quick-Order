@@ -1,14 +1,14 @@
-// Este código valida el formulario del login en tiempo real, 
-// realiza una autenticación con un servidor mediante una solicitud fetch, 
-// y proporciona retroalimentación visual sobre errores en los campos o credenciales incorrectas. 
+// Este código valida el formulario del login en tiempo real,
+// realiza una autenticación con un servidor mediante una solicitud fetch,
+// y proporciona retroalimentación visual sobre errores en los campos o credenciales incorrectas.
 // Además, gestiona el estado del usuario autenticado utilizando localStorage.
 
 //Se puede mejorar el código, mirar chat gpt
 
 //Seleccion de elementos HTML
-const inputs = document.querySelectorAll("input"); 
+const inputs = document.querySelectorAll("input");
 const btn = document.getElementById("botonLogin");
-const popup = document.getElementById('popup2');
+const popup = document.getElementById("popup2");
 
 var user = null;
 
@@ -24,12 +24,11 @@ const expresiones = {
 // - Longitud entre 8 y 16 caracteres.
 // - Sin espacios.
 
-
-//Validar campos: arrow function para validar datos. 
+//Validar campos: arrow function para validar datos.
 //Comprueba el contenido de los campos mail y contraseña en tiempo real (keyup)
 // Si el contenido cumple con la expresión regular, aplica estilos de clase "correcto" (claseT).
 // Si no cumple, aplica la clase "incorrecto" (claseF).
-const validar = (e) => { 
+const validar = (e) => {
   switch (e.target.id) {
     case "mail":
       expresiones.mail.test(e.target.value) ? claseT("mail") : claseF("mail");
@@ -46,7 +45,7 @@ const validar = (e) => {
 // Realiza una solicitud GET al endpoint 'empleado' para obtener una lista de usuarios.
 // Compara el correo y la contraseña ingresados con los datos del servidor.
 // Si las credenciales coinciden:Almacena el cargo del usuario en localStorage y redirige a "templates.html".
-//Si las credenciales no coinciden, llama a mostrarPopup2() para mostrar un mensaje de error.
+// Si las credenciales no coinciden, llama a mostrarPopup2() para mostrar un mensaje de error.
 async function avanzar() {
   const response = await fetch("empleado", {
     method: "GET",
@@ -68,9 +67,10 @@ async function avanzar() {
   }
 
   const data = { usuario: user };
-  
+
+  // Si todo está correcto, almacenamos el usuario y redirigimos
   localStorage.setItem("USUARIOS", JSON.stringify(data));
-  
+
   validaduyc == true ? (location.href = "templates.html") : mostrarPopup2();
 }
 
@@ -99,14 +99,38 @@ const claseT = (a) => {
 // Manejo de errores:
 // mostrarPopup2: Muestra un mensaje indicando que el usuario o la contraseña son incorrectos.
 // cerrarPopup2: Oculta el mensaje de error cuando se presiona el botón "Cerrar".
-function mostrarPopup2() {
+function mostrarPopup2(mensaje) {
   let pop = document.getElementById("popup2");
+  let fondo = document.createElement("div");
+
+  fondo.classList.add("popup-background");
+  fondo.id = "popup-background";
+
+  document.body.appendChild(fondo);
+
   pop.style.display = "block";
-  pop.innerHTML =
-    '<h6 class="m-0 font-weight-bold text-primary">EL USUARIO O LA CONTRASEÑA SON INCORRECTOS</h6>' +
-    '<button id="boton-cerrar2" onclick="javascript: cerrarPopup2();">Cerrar</button>';
+  pop.style.opacity = "1";
+  fondo.style.display = "block";
+
+  pop.innerHTML = `
+    <h6 class="m-0 font-weight-bold text-primary"> EL USUARIO O LA CONTRASEÑA SON INCORRECTOS </h6>
+    <button id="boton-cerrar2" onclick="javascript: cerrarPopup2();"> Cerrar </button>
+  `;
+
+  // Cierra automáticamente después de 3 segundos
+  setTimeout(() => {
+    cerrarPopup2();
+  }, 3000);
 }
 
 function cerrarPopup2() {
-  document.getElementById("popup2").style.display = "none";
+  let pop = document.getElementById("popup2");
+  let fondo = document.getElementById("popup-background");
+
+  pop.style.opacity = "0";
+
+  setTimeout(() => {
+    pop.style.display = "none";
+    if (fondo) fondo.remove();
+  }, 300);
 }

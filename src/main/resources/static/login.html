@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Login</title>
+    <title> Inicio - Comandero Virtual</title>
     <link href="css/styles.css" rel="stylesheet" />
   </head>
   <body>
@@ -17,20 +17,28 @@
 			<span class="login">
 				<img class="logo" src="images/QO-Logo.png">
 
-				<h1 class="title"> Welcome Back! </h1>
+				<h3 class="title"> Bienvenido! </h3>
 
 				<form class="form">
-					<input type="email" class="form-input" id="mail" data-validate placeholder="Email">
-					<input type="password" class="form-input" id="contraseña" data-validate placeholder="Password">
+					<div class="input-group">
+						<label for="mail" class="form-label"> Usuario </label>
+						<input type="email" class="form-input" id="mail" data-validate placeholder="Ingrese usuario" required>
+					</div>
+					
+					<div class="input-group">
+						<label for="password" class="form-label"> Contraseña </label>
+						<input type="password" class="form-input" id="contraseña" data-validate placeholder="Ingrese contraseña" required>
+					</div>
+					
 				</form>
 
-				<button class="btn-login" id="botonLogin"> Log in </button>
+				<button class="btn-login" id="botonLogin"> Inicia sesión </button>
 			</span>
 		</div>
 	</div>
-	<div id="popup2" class="popupc3"> 
-
-	</div>
+	
+	<div id="popup2" class="popupc3"> </div>
+	
 	<script src="js/login.js"></script>
   </body>
 </html>
