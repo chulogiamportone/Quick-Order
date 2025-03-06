@@ -8,7 +8,7 @@ const carrito = {};
 
 //fx cargar productos
 async function cargarProductos() {
-	const response = await fetch('productos', {
+	const response = await fetch('producto', {
 		method: 'GET',
 		headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
 	});

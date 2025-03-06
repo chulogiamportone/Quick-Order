@@ -1,65 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title> TOMAR PEDIDO </title>
+    <!-- <link href="css/style.css" rel="stylesheet" /> -->
+    <link rel="stylesheet" href="css/templates.css">
+  </head>
 
-<head>
+  <header>
+    <!-- Navbar -->
+      <nav class="navbar">
+        <img src="images/QO-Logo.png" alt="Logo" class="logo">
+        <button class="btn-cerarSesion"> <a href="login.html"> Cerrar Sesión </a> </button>
+      </nav>
+  </header>
 
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta name="description" content="">
-	<meta name="author" content="">
+  <body> <!-- class="bg" -->
+    <div class=" bg "> <!--div mayor container2-->
+      <div class="row justify-content-center">
+        <div class="box-templates">
+          <div class="card shadow-lg">
+            <div class="card-body3" id="Carrito"> </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
 
-	<title>Vistas</title>
+  <footer>
+    <a class="btn-flotante" id="boton-abrir"> Carrito </a>
+    
+    <a href="templates.html" class="btn-flotante2" id="btnf"> VOLVER </a>
+    
+    <div id="popup" class="popupc" style="display: none"> </div>
+    
+    <div id="popup2" class="popupc2" style="display: none">
+      <button id="boton-cerrar2" onclick="javascript: cerrarPopup2();"> Cerrar </button>
+    </div>
+  </footer>
 
-
-
-	<!-- Custom styles for this template-->
-	<link href="css/style.css" rel="stylesheet">
-
-</head>
-
-<body class="bg">
-
-	<div class="container2">
-
-		<!-- Outer Row -->
-		<div class="row justify-content-center">
-
-			<div class="box-templates">
-
-				<div class="card shadow-lg">
-					<div class="card-body3" id="Carrito">
-
-
-
-
-					</div>
-				</div>
-
-			</div>
-
-		</div>
-
-	</div>
-
-
-</body>
-<footer>
-
-	<a class="btn-flotante" id="boton-abrir">Carrito</a>
-	<a href="templates.html" class="btn-flotante2" id="btnf">Cerrar</a>
-	<div id="popup" class="popupc" style="display:none;">
-
-		
-	</div>
-	<div id="popup2" class="popupc2" style="display:none;">
-		<button id="boton-cerrar2" onclick="javascript: cerrarPopup2();">Cerrar</button>
-	</div>
-</footer>
-
-<!-- Bootstrap core JavaScript-->
-<script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.bundle.min.js"></script>
-<script src="js/carrito.js"></script>
-
+  <!-- Bootstrap core JavaScript-->
+  <script src="js/jquery.min.js"></script>
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/carrito.js"></script>
 </html>

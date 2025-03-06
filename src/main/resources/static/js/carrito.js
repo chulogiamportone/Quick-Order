@@ -11,7 +11,8 @@ async function cargarProductos() {
 	let listadoHtml = '';
 
 	for (let producto of productos.data) {
-		let usuarioHtml = '<div class="colapin2"><div class="cardt ">' +
+		let usuarioHtml =
+			'<div class="colapin2"><div class="cardt ">' +
 			'<a  onclick="javascript: mostrarPopup2(' + producto.id + ');" class="d-card cardt-header " role="button">' +
 			'<h6 class="m-0 font-weight-bold text-primary">Pedido N°' + producto.numero + '.                       $' +
 			producto.precio + '</h6></a></div>' +
