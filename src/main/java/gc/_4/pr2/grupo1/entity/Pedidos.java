@@ -17,10 +17,10 @@ public class Pedidos {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	private Long numero;
-	private String FechyHoraDePedido;
-	private String FechyHoraDeEntrega;
-	private String Estado;
-	private String TiempoEstimado;
+	private String fechyHoraDePedido;
+	private String fechyHoraDeEntrega;
+	private String estado;
+	private String tiempoEstimado;
 	
 	@OneToOne(mappedBy="pedidos")
 	private Factura factura;
@@ -28,15 +28,12 @@ public class Pedidos {
 	@ManyToMany(mappedBy = "Lista_PedidosM")
 	private Set<Mesa> Lista_Mesas = new HashSet<>();
 
-
 	@ManyToMany(mappedBy = "Lista_PedidosP")
 	private Set<Productos>  Lista_Productos = new HashSet<>();
-
 
     @ManyToOne
     @JoinColumn(name="empleado_id")
     private Empleado empleado;
-	
 	
 	public Long getId() {
 		return id;
@@ -44,44 +41,40 @@ public class Pedidos {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
 	public Long getNumero() {
 		return numero;
 	}
 	public void setNumero(Long numero) {
 		this.numero = numero;
 	}
-	public String getFechyHoraDePedido() {
-		return FechyHoraDePedido;
-	}
-	public void setFechyHoraDePedido(String fechyHoraDePedido) {
-		FechyHoraDePedido = fechyHoraDePedido;
-	}
-	public String getFechyHoraDeEntrega() {
-		return FechyHoraDeEntrega;
-	}
-	public void setFechyHoraDeEntrega(String fechyHoraDeEntrega) {
-		FechyHoraDeEntrega = fechyHoraDeEntrega;
-	}
-	public String getEstado() {
-		return Estado;
-	}
-	public void setEstado(String estado) {
-		Estado = estado;
-	}
-	public String getTiempoEstimado() {
-		return TiempoEstimado;
-	}
-	public void setTiempoEstimado(String tiempoEstimado) {
-		TiempoEstimado = tiempoEstimado;
-	}
-	
 	public Empleado getEmpleado() {
         return empleado;
     }
-
     public void setEmpleado(Empleado empleado) {
         this.empleado = empleado;
     }
-
+	public String getFechyHoraDePedido() {
+		return fechyHoraDePedido;
+	}
+	public void setFechyHoraDePedido(String fechyHoraDePedido) {
+		this.fechyHoraDePedido = fechyHoraDePedido;
+	}
+	public String getFechyHoraDeEntrega() {
+		return fechyHoraDeEntrega;
+	}
+	public void setFechyHoraDeEntrega(String fechyHoraDeEntrega) {
+		this.fechyHoraDeEntrega = fechyHoraDeEntrega;
+	}
+	public String getEstado() {
+		return estado;
+	}
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+	public String getTiempoEstimado() {
+		return tiempoEstimado;
+	}
+	public void setTiempoEstimado(String tiempoEstimado) {
+		this.tiempoEstimado = tiempoEstimado;
+	}
 }

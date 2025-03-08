@@ -47,6 +47,6 @@ public class PedidosController {
 		if(service.existe(id)) {
 			service.eliminarPorId(id);
 		}
-		return service.existe(id)?new ResponseDTO<>(true,"Eliminado"):new ResponseDTO<>(false,"Este elemento no existe, No se puede eliminar");
+		return service.existe(id)? new ResponseDTO<>(true,"Eliminado"): new ResponseDTO<>(false,"Este elemento no existe, No se puede eliminar");
 	}
 }
