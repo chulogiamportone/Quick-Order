@@ -31,7 +31,6 @@ async function cargarProductos() {
 
 async function mostrarPopup() {
 	let popup = document.getElementById("popup");
-
 	popup.style.display = "block";
 
 	document.getElementById("boton-abrir").style.display = "none";
@@ -45,17 +44,16 @@ async function mostrarPopup() {
 	const productos = await response.json();
 
 	let listadoHtml = '';
-
-	listadoHtml+='<button id="boton-cerrar" onclick="javascript: cerrarPopup();"> Cerrar </button>'
+	listadoHtml+='<button class="btn-cerrar-popup" id="boton-cerrar" onclick="javascript: cerrarPopup();"> Cerrar </button>'
 	
 	for (let producto of productos.data) {
-		let content = document.getElementById("c" + producto.id).innerHTML;
+		let content = parseInt(document.getElementById("c" + producto.id).innerText.trim(), 10);
 
-		if (content != "0") {
-			listadoHtml +='<div style="display=block;"> <div class="colapin2"> <div class="cardt ">' +
+		if (content > 0) {
+			listadoHtml +='<div style="display=block;"> <div class="div-product-list"> <div class="card-product ">' +
 			'<a onclick="javascript: mostrarPopup2(' + producto.id + ');" class="d-card cardt-header" role="button">' +
 			'<h6 class="m-0 font-weight-bold text-primary">' + producto.nombre + '&nbsp; $ ' +
-			producto.precio + '    x'+ content + '</h6> </a> </div> </div>'
+			producto.precio + ' &nbsp; x'+ content + '</h6> </a> </div> </div>'
 		}
 	}
 

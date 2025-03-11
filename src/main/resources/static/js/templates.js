@@ -91,17 +91,35 @@ async function cargarPedidosCocina() {
 
   let listadoHtml = "";
   let pasada = 0;
+
   for (let pedido of pedidos.data) {
     pasada++;
-    let usuarioHtml =
+
+    // Si el estado es "Listo para entregar", no lo mostramos
+    if (pedido.estado === "Listo para entregar") {
+      continue; // Salta este pedido y no lo agrega al listado
+    }
+
+    let botonHtml = "";
+
+    // Verifica el estado y muestra el botón correspondiente
+    if (pedido.estado === null || pedido.estado.trim() === "") {
+      botonHtml = `<button onclick="cambiarEstadoPedido(${pedido.id}, 'En preparación')" class="btn btn-warning"> En preparación </button>`;
+    } else if (pedido.estado === 'En preparación') {
+      botonHtml = `<button onclick="cambiarEstadoPedido(${pedido.id}, 'Listo para entregar')" class="btn btn-success"> Listo para entregar </button>`;
+    }
+
+    let pedidoHtml =
       '<div class="cardt ">' +
       '<a  onclick="javascript: mostrarPopup(' +
       pedido.id +
       ');" class="d-card cardt-header " role="button">' +
       '<h4 class="m-0 font-weight-bold text-primary">Pedido N°' +
       pedido.numero +
-      "</h4></a></div>";
-    listadoHtml += usuarioHtml;
+      "</h4></a>"+
+      botonHtml +
+      "</div>";
+    listadoHtml += pedidoHtml;
   }
   document.getElementById("Pedidos").innerHTML = listadoHtml;
 }
@@ -155,6 +173,26 @@ async function eliminarPedido(id) {
     }
   } catch (error) {
     console.error("Error en la solicitud:", error);
+  }
+}
+
+async function cambiarEstadoPedido(id, nuevoEstado) {
+  console.log(`Enviando nuevo estado: ${nuevoEstado}`); 
+
+  // Realiza una solicitud PUT para actualizar solo el estado del pedido
+  const response = await fetch(`pedidos/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({estado: nuevoEstado}) // Enviar solo el nuevo estado como texto
+  });
+
+  if (response.ok) {
+    console.log(`Estado cambiado a: ${nuevoEstado}`);
+    
+    // Recargar los pedidos de cocina para reflejar el cambio
+    cargarPedidosCocina();
+  } else {
+    console.error("Error al cambiar el estado del pedido");
   }
 }
 

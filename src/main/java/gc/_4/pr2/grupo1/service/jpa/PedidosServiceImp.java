@@ -48,6 +48,15 @@ public class PedidosServiceImp implements IPedidosService {
 			return repo.existsById(id);
 		}
 	}
-	
-	
+
+	public Pedidos actualizarEstado(Long id, String nuevoEstado) {
+        Pedidos pedidoExistente = mostrarPorId(id); // Obtiene el pedido por ID
+
+        if (pedidoExistente != null) {
+            pedidoExistente.setEstado(nuevoEstado); // Actualiza el estado del pedido
+            return guardar(pedidoExistente); // Guarda el pedido actualizado
+        } else {
+            return null; // Si el pedido no existe, retorna null
+        }
+    }
 }

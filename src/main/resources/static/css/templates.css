@@ -76,6 +76,7 @@ body {
 .box-templates {
   width: 90%;
   min-height: 400px;
+  margin-bottom: 120px;
 }
 
 /* CARDS */
@@ -108,8 +109,7 @@ body {
 }
 .d-card {
   display: block ;
-  padding-top: 1rem ;
-  padding-bottom: 1rem !important;
+  padding: 0 1rem;
   /* margin-left: 10%; */
   color: #858796;
 }
@@ -240,7 +240,7 @@ body {
 .card-body2 {
   display: ruby;
 }
-.btn-entregado {
+.btn-entregado, .btn-warning, .btn-success {
   background-color: #ff4d4d;
   color: white;
   border: none;
@@ -267,13 +267,15 @@ body {
   /* border: 2px solid #ccc; */
   /* border-radius: 4px; */
   /* margin: 10px; */
+  font-size: 16px;
 }
 .p-card {
   display: block ;
   /* padding-top: 1rem ; */
   /* padding-bottom: 1rem !important; */
   /* margin-left: 10%; */
-  color: #858796;
+  /* color: #858796; */
+  font-size: 20px;
 }
 
 /* POPUP CARRITO */
@@ -287,6 +289,14 @@ body {
   background-color: #fff;
   border: 1px solid #ddd;
   padding: 20px;
+  font-size: 20px;
+}
+.card-product {
+  background-color: #ccc;
+  border: 2px solid #a8abbf;
+  border-radius: 12px;
+  text-align: center;
+  margin-top: 0.5rem;
 }
 
 /* BOTON FLOTANTE IZQUIERDA VOLVER CARRITO */
@@ -320,7 +330,7 @@ body {
   align-items: center;
   gap: 15px;
   padding: 5px;
-  background: #666;
+  /* background: #666; */
   border-radius: 50px;
   max-width: 110px;
   max-height: 90px;
@@ -329,9 +339,10 @@ body {
 .card__btn {
   width: 30px;
   height: 30px;
-  border-radius: 100%;
+  border-radius: 50%;
   border: none;
-  background: transparent;
+  background: white;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
 }
 .card__counter-score,
 .card__btn {
@@ -339,16 +350,20 @@ body {
   font-size: 22px;
   color: var(--main-color);
 }
-.card__btn-plus {
-  background: var(--bg-color);
-}
+/* .card__btn-plus {
+  background: white;
+} */
 
 /* DIV DE CARDS CARRITO */
 .colapin2 {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 0 10px;
-  border-top: 1px solid #ccc;
+  border: 2px solid #ccc;
+  border-radius: 12px;
+  background-color: #ddd;
+  margin: 10px;
 }
 
 /* CARD BODY CARRITO */

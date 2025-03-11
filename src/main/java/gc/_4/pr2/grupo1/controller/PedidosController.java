@@ -1,6 +1,7 @@
 package gc._4.pr2.grupo1.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -40,6 +41,22 @@ public class PedidosController {
 	@PutMapping("/pedidos")
 	public ResponseDTO<?> actualizarNuevoPedidos(@RequestBody Pedidos pedidosDesdeElServicio){
 		return service.existe(pedidosDesdeElServicio.getId())?new ResponseDTO<>(true,"Modificado",service.guardar(pedidosDesdeElServicio)):new ResponseDTO<>(false,"Este elemento no existe, utilice el POST");
+	}
+	
+	 // Método PUT para actualizar el estado de un pedido
+	@PutMapping("/pedidos/{id}")
+	public ResponseDTO<?> actualizarEstadoPedido(@PathVariable Long id, @RequestBody Map<String, String> estadoRequest) {
+	    String nuevoEstado = estadoRequest.get("estado");
+	    System.out.println("Estado recibido: " + nuevoEstado);
+	    
+	    // Llamar al servicio para actualizar el estado del pedido
+	    Pedidos pedidoActualizado = service.actualizarEstado(id, nuevoEstado);
+	    
+	    if (pedidoActualizado != null) {
+	        return new ResponseDTO<>(true, "Estado actualizado", pedidoActualizado);
+	    } else {
+	        return new ResponseDTO<>(false, "Pedido no encontrado", null);
+	    }
 	}
 	
 	@DeleteMapping("/pedidos/{id}")
