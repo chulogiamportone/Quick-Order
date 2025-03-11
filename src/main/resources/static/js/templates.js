@@ -47,16 +47,15 @@ async function cargarPedidosMozo() {
     let usuarioHtml =
       '<div class="cardt id="pedido-' + pedido.id +'">' + 
         '<a  onclick="javascript: mostrarPopup(' + pedido.id + ');" class="d-card cardt-header " role="button">' +
-          '<h4 class="m-0 font-weight-bold text-primary"> Pedido N° --' + pedido.numero + "</h4>" +
+          '<h4 class="m-0 font-weight-bold text-primary"> Pedido N° ' + pedido.numero + "</h4>" +
         "</a>" + 
-
         botonEntregado +
       "</div>";
     
     listadoHtml += usuarioHtml;
   }
   document.getElementById("Pedidos").innerHTML = listadoHtml;
-  document.getElementById("btn-flotante").innerHTML = '<a href="carrito.html" class="btn-flotante" id="btn-flotante">INICIAR PEDIDO</a>';
+  document.getElementById("btn-flotante").innerHTML = '<a href="carrito.html" class="btn-flotante" id="btn-flotante"> TOMAR PEDIDO </a>';
 }
 
 async function cargarPedidosCaja() {

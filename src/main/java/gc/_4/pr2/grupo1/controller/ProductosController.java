@@ -28,7 +28,6 @@ public class ProductosController {
 		return service.mostrarTodos().isEmpty()?new ResponseDTO<>(false,"Listado Vacio",service.mostrarTodos()):new ResponseDTO<>(true,"Listado",service.mostrarTodos());	
 	}
 	
-	
 	@GetMapping("/productos/{id}")
 	public ResponseDTO<?> mostrarProductoId(@PathVariable("id") Long id){
 		return service.existe(id)?new ResponseDTO<>(true,"Encontrado",service.mostrarPorId(id)):new ResponseDTO<>(false,"No Encontrado");

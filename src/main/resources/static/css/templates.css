@@ -71,6 +71,7 @@ body {
   background-clip: border-box;
   border: 1px solid #e3e6f0;
   border-radius: 10px;
+  text-align: center;
 }
 .box-templates {
   width: 90%;
@@ -257,6 +258,24 @@ body {
 
 /* ----- ESTILOS PANTALLA CARRITO ----- */
 
+/* ITEM PEDIDO */
+.cardp {
+  /* background-color: #ddd; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* border: 2px solid #ccc; */
+  /* border-radius: 4px; */
+  /* margin: 10px; */
+}
+.p-card {
+  display: block ;
+  /* padding-top: 1rem ; */
+  /* padding-bottom: 1rem !important; */
+  /* margin-left: 10%; */
+  color: #858796;
+}
+
 /* POPUP CARRITO */
 .popupc {
   position: fixed;
@@ -327,13 +346,15 @@ body {
 /* DIV DE CARDS CARRITO */
 .colapin2 {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  padding: 0 10px;
+  border-top: 1px solid #ccc;
 }
 
 /* CARD BODY CARRITO */
-.card-body3 {
-  display: flow;
-}
+/* .card-body3 {
+  
+} */
 
 /* ---- MEDIA QUERIES ---- */
 @media only screen and (max-width: 600px) {

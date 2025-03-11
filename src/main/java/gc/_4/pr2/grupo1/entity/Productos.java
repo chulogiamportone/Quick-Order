@@ -18,14 +18,12 @@ public class Productos {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
-	
 	private String nombre;
 	private String Descripcion;
 	private int Precio;
 	private String Disponibilidad;
 	private String categoria;
 	private String Ingredientes;
-	
 
 	@ManyToMany
 	@JoinTable(name = "Productos_Pedidos",	
@@ -33,8 +31,6 @@ public class Productos {
 			inverseJoinColumns = {@JoinColumn(name = "pedidos_id")})
 	private Set<Pedidos> Lista_PedidosP = new HashSet<>();
 
-	
-	
 	
 	public Long getId() {
 		return id;
@@ -48,7 +44,6 @@ public class Productos {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	
 	public int getPrecio() {
 		return Precio;
 	}
@@ -61,7 +56,6 @@ public class Productos {
 	public void setDisponibilidad(String disponibilidad) {
 		Disponibilidad = disponibilidad;
 	}
-	
 	public String getDescripcion() {
 		return Descripcion;
 	}
@@ -79,7 +73,5 @@ public class Productos {
 	}
 	public void setIngredientes(String ingredientes) {
 		Ingredientes = ingredientes;
-	}
-	
-	
+	}	
 }
