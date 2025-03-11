@@ -31,6 +31,16 @@ public class Productos {
 			inverseJoinColumns = {@JoinColumn(name = "pedidos_id")})
 	private Set<Pedidos> Lista_PedidosP = new HashSet<>();
 
+    public void addPedidos(Pedidos pedidos) {
+    	
+    	this.Lista_PedidosP.add(pedidos);
+    	
+	    }
+	
+	
+	
+	
+	
 	
 	public Long getId() {
 		return id;

@@ -55,7 +55,7 @@ async function cargarPedidosMozo() {
     let usuarioHtml =
       '<div class="cardt id="pedido-' + pedido.id +'">' + 
         '<a  onclick="javascript: mostrarPopup(' + pedido.id + ');" class="d-card cardt-header " role="button">' +
-          '<h4 class="m-0 font-weight-bold text-primary"> Pedido N° ' + pedido.numero + "</h4>" +
+          '<h4 class="m-0 font-weight-bold text-primary"> Pedido N° ' + pedido.id + "</h4>" +
         "</a>" + 
         botonEntregado +
       "</div>";
@@ -99,10 +99,10 @@ async function cargarPedidosCaja() {
       pedido.id +
       ');" class="d-card cardt-header " role="button">' +
       '<h4 class="m-0 font-weight-bold text-primary">Pedido N°' +
-      pedido.numero +
-      "</h4></a>"+
-      botonHtml +
-      "</div>";
+
+      pedido.id +
+      "</h4></a></div>";
+
     listadoHtml += usuarioHtml;
     }
   }
@@ -137,7 +137,7 @@ async function cargarPedidosCocina() {
     let botonHtml = "";
 
     // Verifica el estado y muestra el botón correspondiente
-    if (pedido.estado === null || pedido.estado.trim() === "") {
+    if (pedido.estado === null ||pedido.estado === "nuevo" ||pedido.estado.trim() === "") {
       botonHtml = `<button onclick="cambiarEstadoPedido(${pedido.id}, 'En preparación')" class="btn btn-warning"> En preparación </button>`;
     } else if (pedido.estado === 'En preparación') {
       botonHtml = `<button onclick="cambiarEstadoPedido(${pedido.id}, 'Listo para entregar')" class="btn btn-success"> Listo para entregar </button>`;
@@ -149,7 +149,7 @@ async function cargarPedidosCocina() {
       pedido.id +
       ');" class="d-card cardt-header " role="button">' +
       '<h4 class="m-0 font-weight-bold text-primary">Pedido N°' +
-      pedido.numero +
+      pedido.id +
       "</h4></a>"+
       botonHtml +
       "</div>";
