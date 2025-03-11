@@ -38,10 +38,18 @@ async function cargarPedidosMozo() {
     pasada++;
     console.log(`Pedido ${pedido.id}: Estado -> ${pedido.estado}`); // Para depuración
 
+    if (pedido.estado === "Entregado") {
+      continue; 
+    }
+
+    if (pedido.estado === "Pagado") {
+      continue;
+    }
+
     let botonEntregado = "";
 
     if (pedido.estado && pedido.estado.trim().toLowerCase() === "listo para entregar") {
-      botonEntregado = '<button class="btn-entregado" onclick="eliminarPedido('+ pedido.id +')"> Entregado </button>';
+      botonEntregado = '<button class="btn-entregado" onclick="cambiarEstadoPedido('+ pedido.id +',\'Entregado\')"> Entregado </button>';
     }
 
     let usuarioHtml =
@@ -63,21 +71,40 @@ async function cargarPedidosCaja() {
     method: "GET",
     headers: { Accept: "application/json", "Content-Type": "application/json" },
   });
+
   const pedidos = await response.json();
 
   let listadoHtml = "";
   let pasada = 0;
+
   for (let pedido of pedidos.data) {
     pasada++;
-    let usuarioHtml =
+
+    if (pedido.estado === "Pagado") {
+      continue;
+    }
+
+    if (pedido.estado !== "Entregado") {
+      continue; // Salta los pedidos que no tienen estado "Entregado"
+    }
+
+    if (pedido.estado === "Entregado") {
+
+      let botonHtml ="";
+      botonHtml = `<button onclick="cambiarEstadoPedido(${pedido.id}, 'Pagado')" class="btn btn-warning"> Pagado </button>`
+      
+      let usuarioHtml =
       '<div class="cardt ">' +
       '<a  onclick="javascript: mostrarPopup(' +
       pedido.id +
       ');" class="d-card cardt-header " role="button">' +
       '<h4 class="m-0 font-weight-bold text-primary">Pedido N°' +
       pedido.numero +
-      "</h4></a></div>";
+      "</h4></a>"+
+      botonHtml +
+      "</div>";
     listadoHtml += usuarioHtml;
+    }
   }
   document.getElementById("Pedidos").innerHTML = listadoHtml;
 }
@@ -95,9 +122,16 @@ async function cargarPedidosCocina() {
   for (let pedido of pedidos.data) {
     pasada++;
 
-    // Si el estado es "Listo para entregar", no lo mostramos
     if (pedido.estado === "Listo para entregar") {
-      continue; // Salta este pedido y no lo agrega al listado
+      continue;
+    }
+    
+    if (pedido.estado === "Entregado") {
+      continue; 
+    }
+    
+    if (pedido.estado === "Pagado") {
+      continue;
     }
 
     let botonHtml = "";
@@ -153,32 +187,30 @@ function cerrarPopup() {
   document.getElementById("popup2").style.display = "none";
 }
 
-async function eliminarPedido(id) {
-  try {
-    let response = await fetch(`pedidos/${id}`, { method: "DELETE" });
+// async function eliminarPedido(id) {
+//   try {
+//     let response = await fetch(`pedidos/${id}`, { method: "DELETE" });
 
-    if (response.ok) {
-
-      const pedidoElement = document.getElementById(`pedido-${id}`);
+//     if (response.ok) {
+//       const pedidoElement = document.getElementById(`pedido-${id}`);
       
-      if (pedidoElement) {
-        pedidoElement.remove();
-        console.log(`Pedido ${id} eliminado`);
-      }
+//       if (pedidoElement) {
+//         pedidoElement.remove();
+        
+//         console.log(`Pedido ${id} eliminado`);
+//       }
       
-      // Recargar la lista de pedidos desde el servidor
-      await cargarPedidosMozo();
-    }  else {
-      console.error("Error al eliminar el pedido");
-    }
-  } catch (error) {
-    console.error("Error en la solicitud:", error);
-  }
-}
+//     // Recargar la lista de pedidos desde el servidor
+//       await cargarPedidosMozo();
+//     }  else {
+//     console.error("Error al eliminar el pedido");
+//     }
+//   } catch (error) {
+//     console.error("Error en la solicitud:", error);
+//   }
+// }
 
 async function cambiarEstadoPedido(id, nuevoEstado) {
-  console.log(`Enviando nuevo estado: ${nuevoEstado}`); 
-
   // Realiza una solicitud PUT para actualizar solo el estado del pedido
   const response = await fetch(`pedidos/${id}`, {
     method: "PUT",
@@ -188,9 +220,16 @@ async function cambiarEstadoPedido(id, nuevoEstado) {
 
   if (response.ok) {
     console.log(`Estado cambiado a: ${nuevoEstado}`);
-    
-    // Recargar los pedidos de cocina para reflejar el cambio
-    cargarPedidosCocina();
+
+    if (nuevoEstado === "Entregado") {
+      cargarPedidosMozo();
+      cargarPedidosCaja(); 
+    } else {
+      // Si no es entregado, solo recargar la lista correspondiente
+      cargarPedidosCocina();
+      cargarPedidosMozo();
+      cargarPedidosCaja(); 
+    }
   } else {
     console.error("Error al cambiar el estado del pedido");
   }
