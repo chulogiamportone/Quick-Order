@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+</head>
+<body>
+    <h1>Bienvenido al Dashboard</h1>
+    <p>Usuario: <span sec:authentication="name"></span></p>
+    <p>Rol: <span sec:authentication="principal.authorities"></span></p>
+    
+    <div sec:authorize="hasRole('CAJA')">
+        <h2>Panel de Administración (Solo CAJA)</h2>
+        <a href="/admin/empleados">Gestionar Empleados</a>
+    </div>
+    
+    <div sec:authorize="hasRole('MOZO')">
+        <h2>Panel de Mozo</h2>
+        <a href="/mozo/pedidos">Gestionar Pedidos</a>
+    </div>
+    
+    <div sec:authorize="hasRole('COCINA')">
+        <h2>Panel de Cocina</h2>
+        <a href="/cocina/pedidos">Ver Pedidos</a>
+    </div>
+    
+    <br><br>
+    <a href="/logout">Cerrar Sesión</a>
+</body>
+</html>

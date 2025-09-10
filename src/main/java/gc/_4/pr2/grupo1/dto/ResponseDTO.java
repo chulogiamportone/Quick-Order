@@ -24,7 +24,6 @@ public class ResponseDTO<T> {
 	}
 	public ResponseDTO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public ResponseDTO(boolean status, String message, T data) {
 		super();

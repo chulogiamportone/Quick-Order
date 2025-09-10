@@ -20,7 +20,7 @@ public class ProductosServiceImp implements IProductosService{
 	
 	@Override
 	public Productos mostrarPorId(Long id) {
-		return repo.findById(null).orElse(null);
+		return repo.findById(id).orElse(null);
 	}
 	
 	@Override
