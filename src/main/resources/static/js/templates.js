@@ -1,9 +1,8 @@
 
-$(document).ready(function() {
 
-	const dataJson = localStorage.getItem('USUARIOS');
-	const data = JSON.parse(dataJson);
-	switch (data.usuario) {
+
+$(document).ready(function() {
+	switch ("MOZO") {
 		case "MOZO":
 			cargarPedidosMozo();
 			break;
@@ -14,7 +13,7 @@ $(document).ready(function() {
 			cargarPedidosCocina();
 			break;
 		default:
-			location.href = "login.html"
+			location.href = "login"
 			break;
 	}
 });
@@ -41,7 +40,7 @@ async function cargarPedidosMozo() {
 		listadoHtml += usuarioHtml;
 	}
 	document.getElementById("Pedidos").innerHTML = listadoHtml;
-	document.getElementById('btn-flotante').innerHTML = '<a href="carrito.html" class="btn-flotante" id="btn-flotante">INICIAR PEDIDO</a>';
+	document.getElementById('btn-flotante').innerHTML = '<a href="carrito" class="btn-flotante" id="btn-flotante">INICIAR PEDIDO</a>';
 	
 
 }

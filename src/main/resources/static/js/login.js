@@ -1,7 +1,7 @@
-inputs = document.querySelectorAll('input'); //Tomo todos los inputs del html  
+inputs = document.querySelectorAll('input'); //Tomo todos los inputs del html
 btn = document.getElementById('botonLogin');
 
-var user = null;
+btn.addEventListener('click', avanzar)
 
 expresiones = { //objeto con mis expresiones regulares
 	mail: /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/,
@@ -11,31 +11,34 @@ expresiones = { //objeto con mis expresiones regulares
 const validar = (e) => { //arrow function para validar datos
 
 	switch (e.target.id) {
-		case "mail":
+		case "username":
 			expresiones.mail.test(e.target.value) ? claseT('mail') : claseF('mail');
 			break;
-		case "contraseña":
+		case "password":
 			expresiones.contraseña.test(e.target.value) ? claseT('contraseña') : claseF('contraseña');
 			break;
 	}
 }
 async function avanzar() {
-
+	console.log("DEBUG: Iniciando validación de usuario y contraseña");
 	const response = await fetch('empleado', {
 		method: 'GET',
 		headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
 	});
-	let validaduyc = false;
+
+	console.log(document.getElementById("username").value)
+	console.log(document.getElementById("password").value)
+
 	const empleados = await response.json();
+
 	for (let empleado of empleados.data) {
-		if (empleado.usuario == document.getElementById("mail").value && empleado.contraseña == document.getElementById("contraseña").value) {
+		if (empleado.usuario == document.getElementById("username").value && empleado.contraseña == document.getElementById("{noop}"+"password").value) {
 			validaduyc = true;
 			user = empleado.cargo;
 		}
 	}
 	const data = { usuario: user };
 	localStorage.setItem('USUARIOS', JSON.stringify(data));
-	validaduyc == true ? location.href = "templates.html" : mostrarPopup2();
 
 }
 
@@ -43,7 +46,8 @@ async function avanzar() {
 inputs.forEach((input) => {
 	input.addEventListener('keyup', validar);
 });
-btn.addEventListener('click', avanzar)
+
+
 
 const claseF = (a) => {
 	document.getElementById(a).classList.add('form_error');
@@ -56,13 +60,3 @@ const claseT = (a) => {
 
 }
 
-function mostrarPopup2() {
-	let pop = document.getElementById("popup2")
-	pop.style.display = "block";
-	pop.innerHTML = '<h6 class="m-0 font-weight-bold text-primary">EL USUARIO O LA CONTRASEÑA SON INCORRECTOS</h6>' +
-		'<button id="boton-cerrar2" onclick="javascript: cerrarPopup2();">Cerrar</button>'
-}
-
-function cerrarPopup2() {
-	document.getElementById("popup2").style.display = "none";
-}

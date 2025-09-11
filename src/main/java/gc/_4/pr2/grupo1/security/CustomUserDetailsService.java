@@ -19,13 +19,13 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Empleado empleado = empleadoRepository.findByUsuario(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
-        System.out.println("DEBUG contraseña BD: " + empleado.getContraseña());
-        System.out.println("DEBUG usuario BD: " + empleado.getUsuario());
-
+        
+        
+        
         return User.builder()
                 .username(empleado.getUsuario())
                 .password(empleado.getContraseña()) // 👈 debe ser el hash BCrypt de la BD
-                .roles("CAJA") // o lo que corresponda
+                .roles(empleado.getCargo().name()) // o lo que corresponda
                 .build();
     }   
 

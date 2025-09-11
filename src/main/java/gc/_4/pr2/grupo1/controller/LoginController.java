@@ -24,8 +24,16 @@ public class LoginController {
         return "login";
     }
 
+    @GetMapping("/templates")
+    public String templates() {
+        return "templates";
+    }
     @GetMapping("/dashboard")
     public String dashboard() {
         return "dashboard";
+    }
+    @GetMapping("/carrito")
+    public String carrito() {
+        return "carrito";
     }
 }
