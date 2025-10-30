@@ -209,7 +209,18 @@
 	padding-bottom: 5rem;
 	height: fit-content;
 }
+.corner-logo {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+	filter: brightness(0) invert(1);  /* Hace la imagen blanca */
 
+}
+
+.corner-logo img {
+    width: 100px;  /* ajusta el tamaño según necesites */
+    height: auto;
+}
 
 
 
@@ -441,7 +452,8 @@ form.user .btn-user {
 	color: black;
 }
 .hora-cardt{
-	margin: 0;
+	margin-top: -25px;
+	margin-bottom: -20px;
 }
 
 .d-card {
