@@ -421,9 +421,9 @@ form.user .btn-user {
 	box-shadow: 0 .15rem 1.75rem 0 rgba(58, 59, 69, .15) !important;
 	transition: 0.9s;
 }
-.cardt:hover{
+/* .cardt:hover{
 	background-color: #F28705;
-}
+} */
 
 .cardt .cardt-header[data-toggle=collapse] {
 	text-decoration: none;
@@ -434,7 +434,15 @@ form.user .btn-user {
 	border-radius: calc(.35rem - 1px) calc(.35rem - 1px) 0 0;
 }
 
-
+.estado-cardt {
+	font-weight: bold;
+}
+.h4-cardt{
+	color: black;
+}
+.hora-cardt{
+	margin: 0;
+}
 
 .d-card {
 	display: block !important;
