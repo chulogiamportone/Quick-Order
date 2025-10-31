@@ -260,41 +260,38 @@ body {
   max-height: 80%;
 }
 .logo_h {
-  height: 50px;
-  margin-bottom: 5px;
+  max-height: 50px; /* Ajusta según el tamaño que necesites */
 }
 .logo_header {
   display: flex;
-  gap: 10px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  width: 100%;
+}
+.left-content {
+  display: flex;
+  align-items: center;
+}
+.right-content {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* Espacio entre el título y el botón */
 }
 .header_title {
-  padding-top: 11px;
+  margin: 0; /* Elimina márgenes por defecto del h2 */
+}
+.btn-logout {
+  padding: 8px 16px;
+  background-color: #dc3545;
   color: white;
-  margin: 0;
-  right: 100px;
-  position: absolute;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
-.text-center {
-  text-align: center !important;
-  width: 80%;
-}
-form.user .btn-user {
-  font-size: 0.8rem;
-  border-radius: 10rem;
-  padding: 0.75rem 1rem;
-  text-align: center !important;
-}
-.btn-login {
-  display: block;
-  width: 80%;
-  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
-  color: #fff;
-  background-color: #f28705;
-  border-color: #f25c05;
-  font-size: 0.8rem;
-  border-radius: 10rem;
-  padding: 0.75rem 1rem;
-  text-align: center !important;
+.btn-logout:hover {
+  background-color: #c82333;
 }
 
 /*INPUTS LOGIN CORRECTOS*/
@@ -337,6 +334,23 @@ form.user .btn-user {
   border-radius: 10rem;
   box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
   border: 3px solid red;
+}
+
+.btn-logout {
+    /* position: absolute;
+    top: 20px;
+    right: 20px; */
+    padding: 10px 20px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-logout:hover {
+    background-color: #c82333;
 }
 
 /* TEMPLATES  */
@@ -496,6 +510,32 @@ form.user .btn-user {
   flex: 1 1 auto;
   min-height: 1px;
   padding: 1.25rem;
+}
+
+/* BOTÓN LOGIN */
+.btn-login {
+  font-size: 0.9rem;
+  letter-spacing: 0.05rem;
+  padding: 0.75rem 1rem;
+  border-radius: 2rem;
+  background-color: #f28705;
+  border: none;
+  color: white;
+  width: 80%;
+  transition: all 0.2s ease-in-out;
+  margin-top: 1rem;
+  box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+}
+
+.btn-login:hover {
+  background-color: #f25c05;
+  transform: translateY(-2px);
+  box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.2);
+}
+
+.btn-login:focus {
+  outline: none;
+  box-shadow: 0 0 0 0.2rem rgba(242, 135, 5, 0.25);
 }
 
 *,
