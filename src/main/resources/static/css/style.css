@@ -265,14 +265,40 @@ body {
 }
 .logo_header {
   display: flex;
-  gap: 10px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  width: 100%;
 }
 .header_title {
   padding-top: 11px;
   color: white;
   margin: 0;
   right: 100px;
-  position: absolute;
+}
+.left-content {
+  display: flex;
+  align-items: center;
+}
+.right-content {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* Espacio entre el título y el botón */
+}
+.btn-logout:hover {
+  background-color: #c82333;
+}
+.btn-logout {
+    /* position: absolute;
+    top: 20px;
+    right: 20px; */
+    padding: 10px 20px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 .text-center {
   text-align: center !important;
