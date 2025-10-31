@@ -2,6 +2,23 @@ $(document).ready(function() {
 	cargarProductos()
 });
 
+document.addEventListener('DOMContentLoaded', function() {
+    const categoryButtons = document.querySelectorAll('.category-button');
+
+    categoryButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Remueve la clase 'active' de cualquier botón que la tenga
+            categoryButtons.forEach(btn => btn.classList.remove('active'));
+            
+            // Agrega la clase 'active' al botón que fue clickeado
+            this.classList.add('active');
+
+            // Aquí puedes añadir más lógica, como filtrar productos
+            console.log('Categoría seleccionada:', this.dataset.category);
+        });
+    });
+}); 
+
 async function cargarProductos() {
 	const response = await fetch('productos', {
 		method: 'GET',
@@ -11,14 +28,39 @@ async function cargarProductos() {
 	let listadoHtml = '';
 
 	for (let producto of productos.data) {
-		let usuarioHtml = '<div class="colapin2"><div class="cardt ">' +
-			'<a  onclick="javascript: mostrarPopup2(' + producto.id + ');" class="d-card cardt-header " role="button">' +
-			'<h6 class="m-0 font-weight-bold text-primary">Pedido N°' + producto.numero + '.                       $' +
-			producto.precio + '</h6></a></div>' +
-			'<div class="card__counter"><button class="card__btn" onclick="javascript: menos(' + producto.id + ');" id="-' +
-			producto.id + '">-</button><div class="card__counter-score" id="c' + producto.id + '">0</div>' +
-			'<button  class="card__btn card__btn-plus" onclick="javascript: mas(' + producto.id + ');" id="+' +
-			producto.id + '">+</button></div></div>'
+		let usuarioHtml = '<div class="colapin2">' +
+    '<div class="cardc d-flex align-items-center justify-content-between">' + // Aplicamos Flexbox
+        
+        // 1. Columna del Ícono (Simulado aquí, deberías reemplazar con tu ícono)
+        '<div class="card__icon-col">' +
+            // Reemplaza esto con tu ícono de pizza/producto
+            '<span class="producto-icono">🍕</span>' + 
+        '</div>' +
+
+        // 2. Columna del Nombre y Descripción (Estructura vertical)
+        '<div class="card__info-col flex-grow-1 mx-2">' + // Ocupa espacio flexible
+            '<h3 class="m-0 font-weight-bold text-primary">' + producto.nombre + '</h3>' + 
+            // ASUMO QUE LA DESCRIPCIÓN ESTÁ EN OTRA PROPIEDAD 'producto.descripcion'
+            '<p class="text-muted small m-0">' + producto.descripcion + '</p>' + 
+        '</div>' +
+        
+        // 3. Columna del Valor del Producto
+        '<div class="card__price-col mr-3">' +
+            // Asumiendo que 'producto.precio' ahora solo contiene el valor
+            '<h5 class="m-0 font-weight-bold">$' + producto.precio + '</h5>' + 
+        '</div>' +
+
+        // 4. Columna del Contador
+        '<div class="card__counter-col">' +
+            '<div class="card__counter">' +
+                '<button class="card__btn" onclick="javascript: menos(' + producto.id + ');" id="-' + producto.id + '">-</button>' +
+                '<div class="card__counter-score" id="c' + producto.id + '">0</div>' +
+                '<button class="card__btn card__btn-plus" onclick="javascript: mas(' + producto.id + ');" id="+' + producto.id + '">+</button>' +
+            '</div>' +
+        '</div>' +
+
+    '</div>' + // Cierre de la cardt
+'</div>' // Cierre de colapin2
 
 		listadoHtml += usuarioHtml;
 	}
@@ -84,7 +126,22 @@ function mas(a) {
 	document.getElementById("c" + a).innerHTML = content;
 }
 
+document.addEventListener('DOMContentLoaded', function() {
+    const categoryButtons = document.querySelectorAll('.category-button');
 
+    categoryButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Remueve la clase 'active' de cualquier botón que la tenga
+            categoryButtons.forEach(btn => btn.classList.remove('active'));
+            
+            // Agrega la clase 'active' al botón que fue clickeado
+            this.classList.add('active');
+
+            // Aquí puedes añadir más lógica, como filtrar productos
+            console.log('Categoría seleccionada:', this.dataset.category);
+        });
+    });
+});
 
 
 
