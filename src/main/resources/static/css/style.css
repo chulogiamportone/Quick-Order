@@ -9,27 +9,9 @@
 	background-color: #fff;
 	border: 2px solid #ddd;
 	padding: 20px;
-
-
 }
 
-
-/*POPUP CARRITO*/
-.popupc {
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	width: 91%;
-	height: 100%;
-	background-color: #fff;
-	border: 1px solid #ddd;
-	padding: 20px;
-	
-
-}
-
-/*POPUP CARDS*/
+/*POPUP CARDS (Popup 2 - sin modificar)*/
 .popupc2 {
 	position: fixed;
 	top: 50%;
@@ -42,9 +24,8 @@
 	padding: 20px;
 	border-radius: .35rem;
 	box-shadow: 0 .15rem 1.75rem 0 rgba(58, 59, 69, .15) !important;
-
-
 }
+
 .pop-titulo{
 	display: flex;
 }
@@ -71,6 +52,7 @@
 	color: #858796;
 	margin-top:10px
 }
+
 /*BOTON FLOTANTE DERECHA*/
 .btn-flotante {
 	font-size: 16px;
@@ -147,7 +129,6 @@
 }
 
 /*CONTADOR CARRITO*/
-
 .card__counter {
 	display: flex;
 	flex-direction: row;
@@ -200,7 +181,6 @@
 /*CARD BODY CARRITO*/
 .card-body3 {
 	display: flow;
-
 }
 
 /*BACKGROUND FIXED*/
@@ -214,9 +194,6 @@
 	padding-bottom: 5rem;
 	height: fit-content;
 }
-
-
-
 
 /* LOGIN */
 html {
@@ -250,14 +227,11 @@ body {
 	display: flex;
 	flex-wrap: wrap;
 	max-height: 500px;
-
 }
 /*DIV DE TEMPLATES*/
 .row {
 	display: flex;
 	flex-wrap: wrap;
-
-
 }
 
 .justify-content-center {
@@ -478,8 +452,19 @@ form.user .btn-user {
 }
 
 .producto-icono {
-    font-size: 50px; /* Ajusta el tamaño del ícono */
-    margin: 15px;
+    font-size: 30px; /* Tamaño un poco más compacto */
+    color: #F28705; /* **IMPORTANTE**: Dale un color visible */
+    margin: 0; /* Remover el margin, ya centrado por el padre */
+    line-height: 1; /* Asegura la altura correcta del texto del ícono */
+}
+
+.card__icon-col {
+	/* Agregado para layout de card del producto */
+	flex-shrink: 0; 
+	width: 80px; 
+    display: flex;
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center; /* Centrar verticalmente */
 }
 
 .card__info-col {
@@ -490,7 +475,7 @@ form.user .btn-user {
 
 .card__price-col {
     /* Espaciado a la derecha del precio */
-        margin-right: 20px;
+    margin-right: 20px;
     margin-top: 23px;
     white-space: nowrap; /* Evita que el precio se rompa en dos líneas */
 }
@@ -609,4 +594,193 @@ form.user .btn-user {
 }
 [role=button] {
 	cursor: pointer;
+}
+
+/* ---------------------------------------------------- */
+/* ESTILOS ÚNICOS DEL POPUP CARRITO (EVITANDO CONFLICTOS) */
+/* ---------------------------------------------------- */
+
+/* 1. Fondo completo (Clase Única: qo-popup-backdrop) */
+.qo-popup-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%; 
+    height: 100%; 
+    z-index: 1000;
+    display: flex; /* Asegura el centrado */
+    justify-content: center;
+    align-items: center;
+    
+    /* Efecto Blur */
+    background-color: rgba(0, 0, 0, 0.5); 
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+
+/* 2. Contenedor central (Clase Única: qo-popup-summary-content) */
+.qo-popup-backdrop .qo-popup-summary-content {
+    background-color: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    
+    /* Tamaño del contenedor */
+    width: 90%;
+    max-width: 500px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 3. Área de Scroll de Productos (Clase Única: qo-summary-scroll-area) */
+.qo-summary-scroll-area {
+    overflow-y: auto;
+    flex-grow: 1;
+    padding-right: 10px;
+}
+
+/* 4. Estilo de la Tarjeta Compacta (Clase Única: qo-summary-item) */
+.qo-summary-item {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* 5. Selector Compacto (Clase Única: qo-counter-compact) */
+.qo-counter-compact {
+    transform: scale(0.8); 
+    max-width: none;
+}
+
+
+/* Estilos de la cabecera, resumen y botones internos */
+
+.popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.popup-header h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+}
+
+.btn-mesa {
+    background-color: #f8f8f8;
+    color: #ff8c00;
+    border: 1px solid #ff8c00;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.resumen-title {
+    font-weight: bold;
+    margin: 15px 0 10px 0;
+    color: #555;
+    font-size: 1.1rem;
+}
+
+.item-info { 
+    display: flex; 
+    align-items: center; 
+    flex-grow: 1; 
+}
+.item-icon { 
+    font-size: 20px; 
+    margin-right: 10px; 
+}
+.item-nombre { 
+    font-weight: 600; 
+    color: #333; 
+}
+.item-precio-qty { 
+    color: #ff8c00; 
+    font-weight: bold; 
+    font-size: 0.8rem; 
+}
+.item-actions { 
+    display: flex; 
+    align-items: center; 
+}
+
+/* Botón de Eliminar */
+.btn-eliminar-item {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    color: #888;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: color 0.2s;
+}
+
+.btn-eliminar-item:hover {
+    color: #e74c3c;
+}
+
+/* 4. Resumen de Totales */
+.popup-footer-resumen {
+    padding-top: 15px;
+    margin-top: 15px;
+    border-top: 1px solid #eee;
+}
+
+.resumen-line {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.total-line {
+    font-size: 1.2rem;
+    border-top: 2px solid #333; /* Línea gruesa para el total */
+    padding-top: 5px;
+    margin-top: 5px;
+}
+
+/* 5. Botones de Acción Final (Clases Únicas: qo-btn-back, qo-btn-finish) */
+.popup-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    padding-top: 20px;
+}
+
+.qo-btn-back, .qo-btn-finish {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    flex: 1;
+    text-transform: uppercase;
+    transition: background-color 0.2s;
+}
+
+.qo-btn-back {
+    background-color: #ccc;
+    color: #333;
+}
+.qo-btn-back:hover {
+    background-color: #999;
+}
+
+.qo-btn-finish {
+    background-color: #ff8c00;
+    color: white;
+}
+.qo-btn-finish:hover {
+    background-color: #e67e22;
 }
