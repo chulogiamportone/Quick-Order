@@ -708,7 +708,7 @@ form.user .btn-user {
   padding-top: 20px;
 }
 .qo-btn-back,
-.qo-btn-finish {
+.qo-btn-finish{
   padding: 12px 20px;
   border: none;
   border-radius: 8px;
@@ -718,17 +718,43 @@ form.user .btn-user {
   text-transform: uppercase;
   transition: background-color 0.2s;
 }
-.qo-btn-back {
+.qo-btn-back, .btn-cerrar2 {
   background-color: #ccc;
   color: #333;
 }
-.qo-btn-back:hover {
+.qo-btn-back:hover, .btn-cerrar2:hover {
   background-color: #999;
 }
-.qo-btn-finish {
+.qo-btn-finish,.btn-pagar {
   background-color: #ff8c00;
   color: white;
 }
-.qo-btn-finish:hover {
+.qo-btn-finish:hover, .btn-pagar:hover {
   background-color: #e67e22;
+}
+.btn-pagar {
+  float: right;
+}
+.btn-cerrar2, .btn-pagar {
+  margin-top: 20px;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: large;
+}
+
+.titulo-prod {
+  font-weight: bold;
+  color: #333;
+  font-size: 20px;
+}
+
+.prod {
+  font-size: 18px;
+}
+
+.detalle, .precio{
+  font-size: 14px;
 }
