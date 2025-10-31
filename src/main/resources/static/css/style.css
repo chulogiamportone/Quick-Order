@@ -708,7 +708,8 @@ form.user .btn-user {
   padding-top: 20px;
 }
 .qo-btn-back,
-.qo-btn-finish {
+.qo-btn-finish,
+.btn-cerrar2 {
   padding: 12px 20px;
   border: none;
   border-radius: 8px;

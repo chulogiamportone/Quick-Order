@@ -212,7 +212,7 @@ async function mostrarPopup(a) {
           <div class="comentario"></div>
         </div>
         <div class="titulo-prod">
-          <button id="boton-cerrar2" onclick="javascript: cerrarPopup();">Cerrar</button>
+          <button class="btn-cerrar2" id="boton-cerrar2" onclick="javascript: cerrarPopup();">Cerrar</button>
         </div>
       `;
     }
