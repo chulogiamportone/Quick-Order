@@ -421,7 +421,7 @@ form.user .btn-user {
 }
 .cardt:hover{
 	background-color: #F28705;
-}
+} 
 
 .cardt .cardt-header[data-toggle=collapse] {
 	text-decoration: none;
@@ -445,6 +445,18 @@ form.user .btn-user {
 	box-shadow: 0 .15rem 1.75rem 0 rgba(58, 59, 69, .15) !important;
 	transition: 0.9s;
 }
+
+.estado-cardt {
+	font-weight: bold;
+}
+.h4-cardt{
+	color: black;
+}
+/* .hora-cardt{
+	margin-top: -25px;
+	margin-bottom: -20px; 
+	
+}*/
 
 .cardc .cardc-header[data-toggle=collapse] {
 	text-decoration: none;
