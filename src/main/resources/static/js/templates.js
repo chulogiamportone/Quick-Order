@@ -90,9 +90,10 @@ async function cargarPedidosMozo() {
 
     listadoHtml += usuarioHtml;
   }
-  
+
   document.getElementById("Pedidos").innerHTML = listadoHtml;
-  document.getElementById("btn-flotante").innerHTML = '<a href="carrito" class="btn-flotante" id="btn-flotante">INICIAR PEDIDO</a>';
+  document.getElementById("btn-flotante").innerHTML =
+    '<a href="carrito" class="btn-flotante" id="btn-flotante">INICIAR PEDIDO</a>';
 }
 async function cargarPedidosCaja() {
   const response = await fetch("pedidos", {
@@ -151,17 +152,35 @@ async function mostrarPopup(a) {
 
   for (let pedido of pedidos.data) {
     if (pedido.id == a) {
-      document.getElementById("popup2").innerHTML =
-        '<div class="pop-titulo"><h2 class="pop-pedido">Pedido N°' +
-        pedido.id +
-        "</h2>" +
-        '<h4 class="pop-estado">' +
-        pedido.estado +
-        '</h4></div><h4 class="titulo-prod">Productos</h4><div class="cargar-prod">	' +
-        '<h4 class="prod">titulo producto</h4><div class="detalle-prod"><h6 class="detalle">detalle</h6>' +
-        '<h6 class="precio">precio</h6></div></div><div class="titulo-comentario"><div class="comentario">' +
-        '</div></div><div class="titulo-prod"><button id="boton-cerrar2" onclick="javascript: cerrarPopup();">Cerrar' +
-        "</button></div>";
+      let productosHtml = "";
+      if (pedido.lista_Productos && pedido.lista_Productos.length > 0) {
+        for (let producto of pedido.lista_Productos) {
+          productosHtml += `
+            <div class="cargar-prod">
+              <h4 class="prod">${producto.nombre}</h4>
+              <div class="detalle-prod">
+                <h6 class="detalle">${
+                  producto.descripcion || producto.Descripcion
+                }</h6>
+                <h6 class="precio">${producto.precio || producto.Precio}</h6>
+              </div>
+            </div>`;
+        }
+      } else {
+        productosHtml = `<div class="cargar-prod"><h4 class="prod">No hay productos</h4></div>`;
+      }
+      document.getElementById("popup2").innerHTML = `
+        <div class="pop-titulo"><h2 class="pop-pedido">Pedido N°${pedido.id}</h2>
+        <h4 class="pop-estado">${pedido.estado}</h4></div>
+        <h4 class="titulo-prod">Productos</h4>
+        ${productosHtml}
+        <div class="titulo-comentario">
+          <div class="comentario"></div>
+        </div>
+        <div class="titulo-prod">
+          <button id="boton-cerrar2" onclick="javascript: cerrarPopup();">Cerrar</button>
+        </div>
+      `;
     }
   }
 }

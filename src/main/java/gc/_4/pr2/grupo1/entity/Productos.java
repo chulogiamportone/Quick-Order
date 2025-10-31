@@ -27,11 +27,12 @@ public class Productos {
 	private String Ingredientes;
 	
 
-	@ManyToMany
-	@JoinTable(name = "Productos_Pedidos",	
-			joinColumns = {@JoinColumn(name = "productos_id")},
-			inverseJoinColumns = {@JoinColumn(name = "pedidos_id")})
-	private Set<Pedidos> Lista_PedidosP = new HashSet<>();
+    @ManyToMany
+    @com.fasterxml.jackson.annotation.JsonBackReference
+    @JoinTable(name = "Productos_Pedidos",	
+	    joinColumns = {@JoinColumn(name = "productos_id")},
+	    inverseJoinColumns = {@JoinColumn(name = "pedidos_id")})
+    private Set<Pedidos> Lista_PedidosP = new HashSet<>();
 
 	
 	

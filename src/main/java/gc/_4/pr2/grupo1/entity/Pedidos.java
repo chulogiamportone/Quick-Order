@@ -30,7 +30,14 @@ public class Pedidos {
 
 
 	@ManyToMany(mappedBy = "Lista_PedidosP")
+	@com.fasterxml.jackson.annotation.JsonManagedReference
 	private Set<Productos>  Lista_Productos = new HashSet<>();
+	public Set<Productos> getLista_Productos() {
+		return Lista_Productos;
+	}
+	public void setLista_Productos(Set<Productos> lista_Productos) {
+		this.Lista_Productos = lista_Productos;
+	}
 
 
     @ManyToOne
