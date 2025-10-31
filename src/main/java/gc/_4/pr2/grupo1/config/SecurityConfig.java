@@ -24,11 +24,13 @@ public class SecurityConfig {
         return config.getAuthenticationManager();
     }
 
+
+ 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(authz -> authz
-                .requestMatchers("/login", "/css/**", "/js/**", "/images/**").permitAll()
+                .requestMatchers("/empleado/**","/login", "/css/**", "/js/**", "/images/**", "/favicon.ico").permitAll()
                 .requestMatchers("/admin/**").hasRole("CAJA")
                 .requestMatchers("/cocina/**").hasAnyRole("COCINA", "CAJA")
                 .requestMatchers("/mozo/**").hasAnyRole("MOZO", "CAJA")

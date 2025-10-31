@@ -20,26 +20,8 @@ const validar = (e) => { //arrow function para validar datos
 	}
 }
 async function avanzar() {
-	console.log("DEBUG: Iniciando validación de usuario y contraseña");
-	const response = await fetch('empleado', {
-		method: 'GET',
-		headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-	});
-
-	console.log(document.getElementById("username").value)
-	console.log(document.getElementById("password").value)
-
-	const empleados = await response.json();
-
-	for (let empleado of empleados.data) {
-		if (empleado.usuario == document.getElementById("username").value && empleado.contraseña == document.getElementById("{noop}"+"password").value) {
-			validaduyc = true;
-			user = empleado.cargo;
-		}
-	}
-	const data = { usuario: user };
-	localStorage.setItem('USUARIOS', JSON.stringify(data));
-
+	localStorage.setItem("USER",document.getElementById("user").value)
+	
 }
 
 
