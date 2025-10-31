@@ -1,8 +1,26 @@
 
+async function avanzar() {
+	console.log("DEBUG: Iniciando validación de usuario y contraseña");
+	
+	const response = await fetch('http://localhost:8080/empleado', {
+		method: 'GET',
+		headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+	});
+	
+	const empleados = await response.json();
 
+	for (let empleado of empleados.data) {
+		if (empleado.usuario == localStorage.getItem("USER")) {
+			return empleado.cargo;
+		}
+	}
+}
 
-$(document).ready(function() {
-	switch ("MOZO") {
+$(document).ready(async function() {
+	const user = await avanzar(); // Agregar await aquí
+	console.log(user);
+	
+	switch (user) { // Usar la variable user en lugar de "MOZO"
 		case "MOZO":
 			cargarPedidosMozo();
 			break;
@@ -13,7 +31,7 @@ $(document).ready(function() {
 			cargarPedidosCocina();
 			break;
 		default:
-			location.href = "login"
+			location.href = "login";
 			break;
 	}
 });
