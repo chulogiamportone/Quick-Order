@@ -135,11 +135,9 @@ async function cargarPedidosCaja() {
     }
 
     let usuarioHtml = `
-      <div class="cardt ">
-        <a onclick="javascript: mostrarPopup(${pedido.id});" class="d-card cardt-header" role="button">
-      
+      <div class="cardt " id="pedido-${pedido.id}">
+        <a onclick="javascript: mostrarPopup(${pedido.id}, true);" class="d-card cardt-header" role="button">
           <h4 class="m-0 font-weight-bold text-primary h4-cardt">Pedido N°${pedido.numero}</h4>
-        
           <p class="m-0 hora-cardt"> Hora: ${hora}</p>
           <p class="m-0 estado-cardt" style="color:${estadoColor}"> Estado: ${pedido.estado}</p>
         </a>
@@ -175,7 +173,7 @@ async function cargarPedidosCocina() {
   document.getElementById("Pedidos").innerHTML = listadoHtml;
 }
 
-async function mostrarPopup(a) {
+async function mostrarPopup(a, mostrarPagar = false) {
   const response = await fetch("pedidos", {
     method: "GET",
     headers: { Accept: "application/json", "Content-Type": "application/json" },
@@ -203,6 +201,11 @@ async function mostrarPopup(a) {
         productosHtml = `<div class="cargar-prod"><h4 class="prod">No hay productos</h4></div>`;
       }
 
+      let pagarBtnHtml = "";
+      if (mostrarPagar) {
+        pagarBtnHtml = `<button class='btn-pagar' id='boton-pagar' onclick='javascript: pagarPedido(${pedido.id});'>Pagar</button>`;
+      }
+
       document.getElementById("popup2").innerHTML = `
         <div class="pop-titulo"><h2 class="pop-pedido">Pedido N°${pedido.id}</h2>
         <h4 class="pop-estado">${pedido.estado}</h4></div>
@@ -213,9 +216,18 @@ async function mostrarPopup(a) {
         </div>
         <div class="titulo-prod">
           <button class="btn-cerrar2" id="boton-cerrar2" onclick="javascript: cerrarPopup();">Cerrar</button>
+          ${pagarBtnHtml}
         </div>
       `;
     }
+  }
+}
+function pagarPedido(idPedido) {
+  cerrarPopup();
+  // Ocultar el card del pedido pagado
+  const card = document.getElementById(`pedido-${idPedido}`);
+  if (card) {
+    card.style.display = "none";
   }
 }
 
