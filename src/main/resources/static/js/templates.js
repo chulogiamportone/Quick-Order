@@ -213,33 +213,38 @@ async function mostrarPopup(a, mostrarPagar = false) {
   const pedidos = await response.json();
   document.getElementById("popup2").style.display = "block";
 
+
+  const user = await avanzar();
+  console.log(user);
+
   for (let pedido of pedidos.data) {
-    if (pedido.id == a) {
-      let productosHtml = "";
-      if (pedido.lista_Productos && pedido.lista_Productos.length > 0) {
-        for (let producto of pedido.lista_Productos) {
-          productosHtml += `
+    switch (user) {
+      case "MOZO":
+        if (pedido.id == a) {
+          let productosHtml = "";
+          if (pedido.lista_Productos && pedido.lista_Productos.length > 0) {
+            for (let producto of pedido.lista_Productos) {
+              productosHtml += `
             <div class="cargar-prod">
               <h4 class="prod">${producto.nombre}</h4>
               <div class="detalle-prod">
-                <h6 class="detalle">${
-                  producto.descripcion || producto.Descripcion
+                <h6 class="detalle">${producto.descripcion || producto.Descripcion
                 }</h6>
                 <h6 class="precio">${producto.precio || producto.Precio}</h6>
               </div>
             </div>`;
-        }
-      } else {
-        productosHtml = `<div class="cargar-prod"><h4 class="prod">No hay productos</h4></div>`;
-      }
+            }
+          } else {
+            productosHtml = `<div class="cargar-prod"><h4 class="prod">No hay productos</h4></div>`;
+          }
 
-      let pagarBtnHtml = "";
-      if (mostrarPagar) {
-        pagarBtnHtml = `<button class='btn-pagar' id='boton-pagar' onclick='javascript: pagarPedido(${pedido.id});'>Pagar</button>`;
-      }
+          let pagarBtnHtml = "";
+          if (mostrarPagar) {
+            pagarBtnHtml = `<button class='btn-pagar' id='boton-pagar' onclick='javascript: pagarPedido(${pedido.id});'>Pagar</button>`;
+          }
 
-      document.getElementById("popup2").innerHTML = `
-        <div class="pop-titulo"><h2 class="pop-pedido">Pedido N°${pedido.id}</h2>
+          document.getElementById("popup2").innerHTML = `
+        <div class="pop-titulo"><h2 class="pop-pedido">Pedido MOZO N°${pedido.id}</h2>
         <h4 class="pop-estado">${pedido.estado}</h4></div>
         <h4 class="titulo-prod">Productos</h4>
         ${productosHtml}
@@ -251,9 +256,113 @@ async function mostrarPopup(a, mostrarPagar = false) {
           ${pagarBtnHtml}
         </div>
       `;
+        }
+        break;
+      case "CAJA":
+        generarPopupCaja(pedido);
+        break;
+      case "COCINA":
+        generarPopupCocina(pedido);
+        break;
+      default:
+        location.href = "login";
+        break;
     }
   }
+
 }
+
+
+
+function generarPopupCocina(pedido) {
+  if (pedido.id == a) {
+    let productosHtml = "";
+    if (pedido.lista_Productos && pedido.lista_Productos.length > 0) {
+      for (let producto of pedido.lista_Productos) {
+        productosHtml += `
+            <div class="cargar-prod">
+              <h4 class="prod">${producto.nombre}</h4>
+              <div class="detalle-prod">
+                <h6 class="detalle">${producto.descripcion || producto.Descripcion
+          }</h6>
+                <h6 class="precio">${producto.precio || producto.Precio}</h6>
+              </div>
+            </div>`;
+      }
+    } else {
+      productosHtml = `<div class="cargar-prod"><h4 class="prod">No hay productos</h4></div>`;
+    }
+
+    let pagarBtnHtml = "";
+    if (mostrarPagar) {
+      pagarBtnHtml = `<button class='btn-pagar' id='boton-pagar' onclick='javascript: pagarPedido(${pedido.id});'>Pagar</button>`;
+    }
+
+    document.getElementById("popup2").innerHTML = `
+        <div class="pop-titulo"><h2 class="pop-pedido">Pedido Cocina N°${pedido.id}</h2>
+        <h4 class="pop-estado">${pedido.estado}</h4></div>
+        <h4 class="titulo-prod">Productos</h4>
+        ${productosHtml}
+        <div class="titulo-comentario">
+          <div class="comentario"></div>
+        </div>
+        <div class="titulo-prod">
+          <button class="btn-cerrar2" id="boton-cerrar2" onclick="javascript: cerrarPopup();">Cerrar</button>
+          ${pagarBtnHtml}
+        </div>
+      `;
+  }
+}
+function generarPopupCaja(pedido) {
+  if (pedido.id == a) {
+    let productosHtml = "";
+    if (pedido.lista_Productos && pedido.lista_Productos.length > 0) {
+      for (let producto of pedido.lista_Productos) {
+        productosHtml += `
+            <div class="cargar-prod">
+              <h4 class="prod">${producto.nombre}</h4>
+              <div class="detalle-prod">
+                <h6 class="detalle">${producto.descripcion || producto.Descripcion
+          }</h6>
+                <h6 class="precio">${producto.precio || producto.Precio}</h6>
+              </div>
+            </div>`;
+      }
+    } else {
+      productosHtml = `<div class="cargar-prod"><h4 class="prod">No hay productos</h4></div>`;
+    }
+
+    let pagarBtnHtml = "";
+    if (mostrarPagar) {
+      pagarBtnHtml = `<button class='btn-pagar' id='boton-pagar' onclick='javascript: pagarPedido(${pedido.id});'>Pagar</button>`;
+    }
+
+    document.getElementById("popup2").innerHTML = `
+        <div class="pop-titulo"><h2 class="pop-pedido">Pedido Caja N°${pedido.id}</h2>
+        <h4 class="pop-estado">${pedido.estado}</h4></div>
+        <h4 class="titulo-prod">Productos</h4>
+        ${productosHtml}
+        <div class="titulo-comentario">
+          <div class="comentario"></div>
+        </div>
+        <div class="titulo-prod">
+          <button class="btn-cerrar2" id="boton-cerrar2" onclick="javascript: cerrarPopup();">Cerrar</button>
+          ${pagarBtnHtml}
+        </div>
+      `;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
 function pagarPedido(idPedido) {
   cerrarPopup();
   // Ocultar el card del pedido pagado
