@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.web.SecurityFilterChain;
 import gc._4.pr2.grupo1.security.CustomUserDetailsService;
 
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -30,7 +31,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(authz -> authz
-                .requestMatchers("/empleado/**","/login", "/css/**", "/js/**", "/images/**", "/favicon.ico").permitAll()
+                .requestMatchers("/empleado/**","/login", "/css/**", "/js/**", "/images/**", "/favicon.ico","/pedidos/**","/pedidos").permitAll()
                 .requestMatchers("/admin/**").hasRole("CAJA")
                 .requestMatchers("/cocina/**").hasAnyRole("COCINA", "CAJA")
                 .requestMatchers("/mozo/**").hasAnyRole("MOZO", "CAJA")

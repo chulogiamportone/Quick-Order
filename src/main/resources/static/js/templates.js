@@ -91,6 +91,7 @@ async function cargarPedidosMozo() {
   }
 
   document.getElementById("Pedidos").innerHTML = listadoHtml;
+  document.getElementById("user_name_description").innerHTML = "Mozo";
   document.getElementById("btn-flotante").innerHTML =
     '<a href="carrito" class="btn-flotante" id="btn-flotante">INICIAR PEDIDO</a>';
 }
@@ -147,6 +148,7 @@ async function cargarPedidosCaja() {
     listadoHtml += usuarioHtml;
   }
   document.getElementById("Pedidos").innerHTML = listadoHtml;
+  document.getElementById("user_name_description").innerHTML = "Caja";
 }
 
 async function cargarPedidosCocina() {
@@ -159,18 +161,48 @@ async function cargarPedidosCocina() {
   let listadoHtml = "";
   let pasada = 0;
   for (let pedido of pedidos.data) {
+    if (pedido.estado !== "En Preparación") continue;
     pasada++;
-    let usuarioHtml =
-      '<div class="cardt ">' +
-      '<a  onclick="javascript: mostrarPopup(' +
-      pedido.id +
-      ');" class="d-card cardt-header " role="button">' +
-      '<h4 class="m-0 font-weight-bold text-primary">Pedido N°' +
-      pedido.numero +
-      "</h4></a></div>";
+
+    let hora = "";
+    if (pedido.fechyHoraDePedido) {
+      const partes = pedido.fechyHoraDePedido.split(" ");
+      if (partes.length > 1) {
+        const horaMin = partes[1].split(":");
+        if (horaMin.length >= 2) {
+          hora = `${horaMin[0]}:${horaMin[1]}`;
+        } else {
+          hora = partes[1];
+        }
+      } else {
+        hora = pedido.fechyHoraDePedido;
+      }
+    }
+
+    let estadoColor = "";
+
+    if (pedido.estado === "En Preparación") {
+      estadoColor = "#EFCF0A";
+    } else if (pedido.estado === "Entregado") {
+      estadoColor = "#51A360";
+    } else if (pedido.estado === "Cancelado") {
+      estadoColor = "#D63939";
+    }
+
+    let usuarioHtml = `
+      <div class="cardt " id="pedido-${pedido.id}">
+        <a onclick="javascript: mostrarPopup(${pedido.id}, true);" class="d-card cardt-header" role="button">
+          <h4 class="m-0 font-weight-bold text-primary h4-cardt">Pedido N°${pedido.numero}</h4>
+          <p class="m-0 hora-cardt"> Hora: ${hora}</p>
+          <p class="m-0 estado-cardt" style="color:${estadoColor}"> Estado: ${pedido.estado}</p>
+        </a>
+      </div>
+    `;
+
     listadoHtml += usuarioHtml;
   }
   document.getElementById("Pedidos").innerHTML = listadoHtml;
+  document.getElementById("user_name_description").innerHTML = "Cocina";
 }
 
 async function mostrarPopup(a, mostrarPagar = false) {

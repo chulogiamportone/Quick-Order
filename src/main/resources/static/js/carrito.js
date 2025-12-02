@@ -350,7 +350,56 @@ function relacionarMesaPedido(pedidoId) {
 	alert(`Lógica para seleccionar mesa y relacionarla con Pedido N°${pedidoId}`);
 }
 
-function crearPedido() {
-	alert("Lógica para enviar el pedido al backend y cerrarlo.");
-	cerrarPopup(); 
+async function crearPedido() {
+    try {
+        const now = new Date();
+
+        // Construir el objeto Pedido a enviar
+        const pedidoData = {
+            fechyHoraDePedido: now.toISOString(),
+            fechyHoraDeEntrega: "", // o estimar una hora futura
+            estado: "En Preparación",
+            tiempoEstimado: "20min",
+            empleado: { id: 1 }, // por ahora fijo, luego se puede setear dinámicamente
+            lista_Productos: [],
+            lista_Mesas: []
+        };
+
+        // Agregar productos seleccionados
+        for (let producto of allProducts) {
+            const cantidad = shoppingCart[producto.id] || 0;
+            if (cantidad > 0) {
+                pedidoData.lista_Productos.push({ id: producto.id });
+            }
+        }
+
+        // Agregar mesa seleccionada
+        const mesaSeleccionada = document.getElementById("numero-mesa-display").textContent;
+        if (mesaSeleccionada && mesaSeleccionada !== "0") {
+            pedidoData.lista_Mesas.push({ id: parseInt(mesaSeleccionada) });
+        }
+		console.log(pedidoData)
+        // Enviar al backend
+        const response = await fetch("http://localhost:8080/pedidos", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(pedidoData)
+        });
+
+        const data = await response.json();
+		console.log(data)
+        if (data.success) {
+            alert("✅ Pedido guardado correctamente en la base de datos");
+            cerrarPopup();
+            // Limpia el carrito o actualiza la vista
+        } else {
+            alert("❌ Error al guardar pedido: " + data.message);
+        }
+
+    } catch (error) {
+        console.error("Error al crear pedido:", error);
+        alert("Ocurrió un error al intentar guardar el pedido.");
+    }
 }
