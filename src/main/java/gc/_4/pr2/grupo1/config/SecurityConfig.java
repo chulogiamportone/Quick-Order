@@ -28,32 +28,32 @@ public class SecurityConfig {
 
  
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-            .authorizeHttpRequests(authz -> authz
-                .requestMatchers("/empleado/**","/login", "/css/**", "/js/**", "/images/**", "/favicon.ico","/pedidos/**","/pedidos").permitAll()
-                .requestMatchers("/admin/**").hasRole("CAJA")
-                .requestMatchers("/cocina/**").hasAnyRole("COCINA", "CAJA")
-                .requestMatchers("/mozo/**").hasAnyRole("MOZO", "CAJA")
-                .anyRequest().authenticated()
-            )
-            .formLogin(form -> form
-                .loginPage("/login")
-                .loginProcessingUrl("/perform_login")
-                .defaultSuccessUrl("/templates", true)
-                .failureUrl("/login?error=true")
-                .usernameParameter("username")
-                .passwordParameter("password")
-                .permitAll()
-            )
-            
-            .logout(logout -> logout
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/login?logout=true")
-                .permitAll()
-            )
-            .userDetailsService(userDetailsService);
-        
-        return http.build();
-    }
+public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    http
+        .csrf(csrf -> csrf.disable())  // ← AGREGAR ESTA LÍNEA
+        .authorizeHttpRequests(authz -> authz
+            .requestMatchers("/empleado/**","/login", "/css/**", "/js/**", "/images/**", "/favicon.ico","/pedidos/**","/pedidos").permitAll()
+            .requestMatchers("/admin/**").hasRole("CAJA")
+            .requestMatchers("/cocina/**").hasAnyRole("COCINA", "CAJA")
+            .requestMatchers("/mozo/**").hasAnyRole("MOZO", "CAJA")
+            .anyRequest().authenticated()
+        )
+        .formLogin(form -> form
+            .loginPage("/login")
+            .loginProcessingUrl("/perform_login")
+            .defaultSuccessUrl("/templates", true)
+            .failureUrl("/login?error=true")
+            .usernameParameter("username")
+            .passwordParameter("password")
+            .permitAll()
+        )
+        .logout(logout -> logout
+            .logoutUrl("/logout")
+            .logoutSuccessUrl("/login?logout=true")
+            .permitAll()
+        )
+        .userDetailsService(userDetailsService);
+    
+    return http.build();
+}
 }
