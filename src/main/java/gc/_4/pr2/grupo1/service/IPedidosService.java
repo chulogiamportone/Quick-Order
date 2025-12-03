@@ -12,5 +12,6 @@ public interface IPedidosService {
 	public Pedidos guardar(Pedidos pedidos);
 	public void eliminarPorId(Long id);
 	boolean existe(Long id);
+	Long obtenerProximoNumero();
 	
 }

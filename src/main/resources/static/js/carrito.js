@@ -2,33 +2,33 @@
 let allProducts = [];
 
 // **[NUEVO]** Objeto global para almacenar la cantidad de cada producto en el carrito
-let shoppingCart = {}; 
+let shoppingCart = {};
 
-$(document).ready(function() {
-	// Carga inicial de productos
-	cargarProductos();
+$(document).ready(function () {
+    // Carga inicial de productos
+    cargarProductos();
 
-	// Listener del botón para ABRIR el popup de carrito
-	document.getElementById("boton-abrir").addEventListener("click", mostrarPopup);
+    // Listener del botón para ABRIR el popup de carrito
+    document.getElementById("boton-abrir").addEventListener("click", mostrarPopup);
 });
 
 // Listener para los botones de categoría (se ejecuta cuando el DOM está listo)
-document.addEventListener('DOMContentLoaded', function() {
-	const categoryButtons = document.querySelectorAll('.category-button');
+document.addEventListener('DOMContentLoaded', function () {
+    const categoryButtons = document.querySelectorAll('.category-button');
 
-	categoryButtons.forEach(button => {
-		button.addEventListener('click', function() {
-			// Remueve la clase 'active' de cualquier botón que la tenga
-			categoryButtons.forEach(btn => btn.classList.remove('active'));
+    categoryButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            // Remueve la clase 'active' de cualquier botón que la tenga
+            categoryButtons.forEach(btn => btn.classList.remove('active'));
 
-			// Agrega la clase 'active' al botón que fue clickeado
-			this.classList.add('active');
+            // Agrega la clase 'active' al botón que fue clickeado
+            this.classList.add('active');
 
-			// Llama a la función de filtrado con la categoría seleccionada (data-category)
-			const selectedCategory = this.dataset.category;
-			displayFilteredProducts(selectedCategory);
-		});
-	});
+            // Llama a la función de filtrado con la categoría seleccionada (data-category)
+            const selectedCategory = this.dataset.category;
+            displayFilteredProducts(selectedCategory);
+        });
+    });
 });
 
 /**
@@ -36,84 +36,84 @@ document.addEventListener('DOMContentLoaded', function() {
  */
 function getIconoProducto(categoria) {
     const categoriaMinuscula = categoria ? categoria.toLowerCase() : '';
- 
+
     if (categoriaMinuscula.includes('pizza')) {
         return '<i class="fas fa-pizza-slice"></i>';
     }
     // Usamos fa-cutlery como el ícono más compatible y visible para sandwiches/hamburguesas
     if (categoriaMinuscula.includes('sandwich') || categoriaMinuscula.includes('hamburguesa')) {
-        return '<i class="fas fa-utensils"></i>'; 
+        return '<i class="fas fa-utensils"></i>';
     }
     // Acompañamientos/Empanadas
     if (categoriaMinuscula.includes('acompaña') || categoriaMinuscula.includes('empanada') || categoriaMinuscula.includes('papas')) {
-        return '<i class="fas fa-fries"></i>'; 
+        return '<i class="fas fa-fries"></i>';
     }
-    
+
     if (categoriaMinuscula.includes('bebida') || categoriaMinuscula.includes('trago')) {
         return '<i class="fas fa-cocktail"></i>';
     }
     if (categoriaMinuscula.includes('postre') || categoriaMinuscula.includes('dulce')) {
         return '<i class="fas fa-ice-cream"></i>';
     }
-    return '<i class="fas fa-utensils"></i>'; 
+    return '<i class="fas fa-utensils"></i>';
 }
 
 // --- FUNCIONES ASÍNCRONAS DE BACKEND/DATOS ---
 
 async function getNextNumeroPedido() {
-	// DEBES ADAPTAR ESTA RUTA Y LÓGICA A TU BACKEND
-	try {
-		const response = await fetch('pedidos/proximo-numero', {
-			method: 'GET',
-			headers: { 'Accept': 'application/json' },
-		});
-		const data = await response.json();
-		return data.proximoNumero; 
-	} catch (error) {
-		console.error("Error al obtener el próximo número de pedido. Usando valor por defecto.", error);
-		return 1001; 
-	}
+    // DEBES ADAPTAR ESTA RUTA Y LÓGICA A TU BACKEND
+    try {
+        const response = await fetch('pedidos/proximo-numero', {
+            method: 'GET',
+            headers: { 'Accept': 'application/json' },
+        });
+        const data = await response.json();
+        return data.proximoNumero;
+    } catch (error) {
+        console.error("Error al obtener el próximo número de pedido. Usando valor por defecto.", error);
+        return 1001;
+    }
 }
 
 // --- FUNCIÓN PRINCIPAL DE CARGA Y FILTRADO ---
 
 async function cargarProductos() {
-	try {
-		const response = await fetch('productos', {
-			method: 'GET',
-			headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-		});
-		const productos = await response.json();
+    try {
+        const response = await fetch('productos', {
+            method: 'GET',
+            headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        });
+        const productos = await response.json();
 
-		// Guardamos todos los productos en la variable global
-		allProducts = productos.data;
+        // Guardamos todos los productos en la variable global
+        allProducts = productos.data;
 
-		// **[NUEVO]** Inicializa el carrito a cero para todos los productos
+        // **[NUEVO]** Inicializa el carrito a cero para todos los productos
         allProducts.forEach(p => shoppingCart[p.id] = 0);
 
-		// Muestra todos los productos inicialmente
-		displayFilteredProducts('TODOS'); 
+        // Muestra todos los productos inicialmente
+        displayFilteredProducts('TODOS');
 
-	} catch (error) {
-		console.error("Error al cargar productos:", error);
-	}
+    } catch (error) {
+        console.error("Error al cargar productos:", error);
+    }
 }
 
 /**
  * Filtra los productos según la categoría y actualiza el HTML.
  */
 function displayFilteredProducts(category = 'TODOS') {
-	let listadoHtml = '';
-	const categoryLower = category.toLowerCase();
+    let listadoHtml = '';
+    const categoryLower = category.toLowerCase();
 
-	// 1. Filtrar los productos (Lógica de agrupación de la versión anterior)
-	const productsToDisplay = allProducts.filter(producto => {
+    // 1. Filtrar los productos (Lógica de agrupación de la versión anterior)
+    const productsToDisplay = allProducts.filter(producto => {
         const productoCategoriaLower = producto.categoria.toLowerCase();
-        
+
         if (categoryLower === 'all' || categoryLower === 'todos') {
             return true;
         }
-        
+
         if (productoCategoriaLower === categoryLower) {
             return true;
         }
@@ -121,13 +121,13 @@ function displayFilteredProducts(category = 'TODOS') {
         if (categoryLower.includes('pizza') && productoCategoriaLower.includes('pizza')) {
             return true;
         }
-        
-        if ((categoryLower.includes('sandwich') || categoryLower.includes('hamburguesa')) && 
+
+        if ((categoryLower.includes('sandwich') || categoryLower.includes('hamburguesa')) &&
             (productoCategoriaLower.includes('sandwich') || productoCategoriaLower.includes('hamburguesa'))) {
             return true;
         }
-        
-        if ((categoryLower.includes('acompaña') || categoryLower.includes('empanada')) && 
+
+        if ((categoryLower.includes('acompaña') || categoryLower.includes('empanada')) &&
             (productoCategoriaLower.includes('acompaña') || productoCategoriaLower.includes('empanada'))) {
             return true;
         }
@@ -142,61 +142,61 @@ function displayFilteredProducts(category = 'TODOS') {
         return false;
     });
 
-	// 2. Generar el HTML
-	for (let producto of productsToDisplay) {
+    // 2. Generar el HTML
+    for (let producto of productsToDisplay) {
         // **[CLAVE DE CORRECCIÓN]** Leemos la cantidad del carrito global, no del DOM que desapareció.
-		const currentCount = shoppingCart[producto.id] || 0; 
+        const currentCount = shoppingCart[producto.id] || 0;
 
-		let usuarioHtml = '<div class="colapin2">' +
-			'<div class="cardc d-flex align-items-center justify-content-between">' +
+        let usuarioHtml = '<div class="colapin2">' +
+            '<div class="cardc d-flex align-items-center justify-content-between">' +
 
-			'<div class="card__icon-col">' +
-			'<span class="producto-icono">' + getIconoProducto(producto.categoria) + '</span>' + 
-			'</div>' +
+            '<div class="card__icon-col">' +
+            '<span class="producto-icono">' + getIconoProducto(producto.categoria) + '</span>' +
+            '</div>' +
 
-			'<div class="card__info-col flex-grow-1 mx-2">' +
-			'<h3 class="m-0 font-weight-bold text-primary">' + producto.nombre + '</h3>' +
-			'<p class="text-muted small m-0">' + producto.descripcion + '</p>' +
-			'</div>' +
+            '<div class="card__info-col flex-grow-1 mx-2">' +
+            '<h3 class="m-0 font-weight-bold text-primary">' + producto.nombre + '</h3>' +
+            '<p class="text-muted small m-0">' + producto.descripcion + '</p>' +
+            '</div>' +
 
-			'<div class="card__price-col mr-3">' +
-			'<h5 class="m-0 font-weight-bold">$' + producto.precio + '</h5>' +
-			'</div>' +
+            '<div class="card__price-col mr-3">' +
+            '<h5 class="m-0 font-weight-bold">$' + producto.precio + '</h5>' +
+            '</div>' +
 
-			'<div class="card__counter-col">' +
-			'<div class="card__counter">' +
-			'<button class="card__btn" onclick="javascript: menos(' + producto.id + ');" id="-' + producto.id + '">-</button>' +
-			// **[CLAVE DE CORRECCIÓN]** Usamos el valor del carrito para mostrar.
-			'<div class="card__counter-score" id="c' + producto.id + '">' + currentCount + '</div>' + 
-			'<button class="card__btn card__btn-plus" onclick="javascript: mas(' + producto.id + ');" id="+' + producto.id + '">+</button>' +
-			'</div>' +
-			'</div>' +
+            '<div class="card__counter-col">' +
+            '<div class="card__counter">' +
+            '<button class="card__btn" onclick="javascript: menos(' + producto.id + ');" id="-' + producto.id + '">-</button>' +
+            // **[CLAVE DE CORRECCIÓN]** Usamos el valor del carrito para mostrar.
+            '<div class="card__counter-score" id="c' + producto.id + '">' + currentCount + '</div>' +
+            '<button class="card__btn card__btn-plus" onclick="javascript: mas(' + producto.id + ');" id="+' + producto.id + '">+</button>' +
+            '</div>' +
+            '</div>' +
 
-			'</div>' +
-			'</div>';
+            '</div>' +
+            '</div>';
 
-		listadoHtml += usuarioHtml;
-	}
-	document.getElementById("Carrito").innerHTML = listadoHtml;
+        listadoHtml += usuarioHtml;
+    }
+    document.getElementById("Carrito").innerHTML = listadoHtml;
 }
 
 // --- FUNCIONES DE POPUP Y CARRITO ---
 
 async function mostrarPopup() {
-	let popup = document.getElementById("popup");
+    let popup = document.getElementById("popup");
 
-	popup.classList.add('qo-popup-backdrop');
-	popup.style.display = "flex";
+    popup.classList.add('qo-popup-backdrop');
+    popup.style.display = "flex";
 
-	document.getElementById("boton-abrir").style.display = "none";
-	document.getElementById("btnf").style.display = "none";
+    document.getElementById("boton-abrir").style.display = "none";
+    document.getElementById("btnf").style.display = "none";
 
-	const proximoNumeroPedido = await getNextNumeroPedido();
-	
-	let popupContentHtml = '';
-	let subtotalCalculado = 0;
+    const proximoNumeroPedido = await getNextNumeroPedido();
 
-	// ... (Código de cabecera HTML, igual al que tenías) ...
+    let popupContentHtml = '';
+    let subtotalCalculado = 0;
+
+    // ... (Código de cabecera HTML, igual al que tenías) ...
     popupContentHtml += `
         <div class="popup-header">
             <h2>Pedido N°${proximoNumeroPedido}</h2>
@@ -210,17 +210,17 @@ async function mostrarPopup() {
     `;
 
 
-	// --- 2. GENERACIÓN DE TARJETAS DE PRODUCTOS SELECCIONADOS ---
+    // --- 2. GENERACIÓN DE TARJETAS DE PRODUCTOS SELECCIONADOS ---
     // Recorremos ALLPRODUCTS, no la respuesta del fetch, para usar el array global
-	for (let producto of allProducts) { 
+    for (let producto of allProducts) {
         // **[CLAVE DE CORRECCIÓN]** Usamos el carrito global
-		let cantidad = shoppingCart[producto.id] || 0;
+        let cantidad = shoppingCart[producto.id] || 0;
 
-		if (cantidad > 0) {
-			const precioUnitario = parseFloat(producto.precio.replace ? producto.precio.replace(/[$.]/g, '') : producto.precio);
-			subtotalCalculado += precioUnitario * cantidad;
+        if (cantidad > 0) {
+            const precioUnitario = parseFloat(producto.precio.replace ? producto.precio.replace(/[$.]/g, '') : producto.precio);
+            subtotalCalculado += precioUnitario * cantidad;
 
-			popupContentHtml += `
+            popupContentHtml += `
                 <div class="qo-summary-item d-flex align-items-center justify-content-between">
                     
                     <div class="item-info d-flex align-items-center">
@@ -244,14 +244,14 @@ async function mostrarPopup() {
                     </div>
                 </div>
             `;
-		}
-	}
+        }
+    }
 
-	// Cierre del contenedor de scroll
-	popupContentHtml += `</div>`;
+    // Cierre del contenedor de scroll
+    popupContentHtml += `</div>`;
 
-	// --- 3. PIE DE PÁGINA: Resumen de Totales y Botones de Acción ---
-	const totalPagar = subtotalCalculado.toFixed(2);
+    // --- 3. PIE DE PÁGINA: Resumen de Totales y Botones de Acción ---
+    const totalPagar = subtotalCalculado.toFixed(2);
     // ... (Código de pie de página HTML, igual al que tenías) ...
     popupContentHtml += `
         <div class="popup-footer-resumen">
@@ -275,18 +275,18 @@ async function mostrarPopup() {
         </div>
     `;
 
-	popup.innerHTML = `<div class="qo-popup-summary-content">${popupContentHtml}</div>`;
+    popup.innerHTML = `<div class="qo-popup-summary-content">${popupContentHtml}</div>`;
 }
 
 
 function cerrarPopup() {
-	let popup = document.getElementById("popup");
+    let popup = document.getElementById("popup");
 
-	popup.classList.remove('qo-popup-backdrop');
-	popup.style.display = "none";
+    popup.classList.remove('qo-popup-backdrop');
+    popup.style.display = "none";
 
-	document.getElementById("boton-abrir").style.display = "block";
-	document.getElementById("btnf").style.display = "block";
+    document.getElementById("boton-abrir").style.display = "block";
+    document.getElementById("btnf").style.display = "block";
 }
 
 
@@ -295,91 +295,89 @@ function cerrarPopup() {
 function menos(a) {
     // **[CLAVE DE CORRECCIÓN]** Manipulamos el carrito global y el DOM
     let content = shoppingCart[a] || 0;
-	if (content > 0) {
-		content = content - 1;
-	}
+    if (content > 0) {
+        content = content - 1;
+    }
     shoppingCart[a] = content;
-    
+
     // Si el contador del producto existe en el DOM, lo actualizamos.
     const counterElement = document.getElementById("c" + a);
     if (counterElement) {
         counterElement.innerHTML = content;
     }
-    
-	// Si el popup está visible, recárgalo para que la lista se actualice
-	if (document.getElementById("popup").style.display === "flex") {
-		mostrarPopup();
-	}
+
+    // Si el popup está visible, recárgalo para que la lista se actualice
+    if (document.getElementById("popup").style.display === "flex") {
+        mostrarPopup();
+    }
 }
 
 function mas(a) {
     // **[CLAVE DE CORRECCIÓN]** Manipulamos el carrito global y el DOM
-	let content = shoppingCart[a] || 0;
-	content = content + 1;
-	shoppingCart[a] = content;
+    let content = shoppingCart[a] || 0;
+    content = content + 1;
+    shoppingCart[a] = content;
 
     // Si el contador del producto existe en el DOM, lo actualizamos.
     const counterElement = document.getElementById("c" + a);
     if (counterElement) {
         counterElement.innerHTML = content;
     }
-    
-	// Si el popup está visible, recárgalo para que la lista se actualice
-	if (document.getElementById("popup").style.display === "flex") {
-		mostrarPopup();
-	}
+
+    // Si el popup está visible, recárgalo para que la lista se actualice
+    if (document.getElementById("popup").style.display === "flex") {
+        mostrarPopup();
+    }
 }
 
 function eliminarProductoCarrito(id) {
-	// **[CLAVE DE CORRECCIÓN]** Poner el contador del producto a 0 en el carrito global
-	shoppingCart[id] = 0;
-    
+    // **[CLAVE DE CORRECCIÓN]** Poner el contador del producto a 0 en el carrito global
+    shoppingCart[id] = 0;
+
     // Y actualizar el DOM si es visible
     const counterElement = document.getElementById("c" + id);
     if (counterElement) {
         counterElement.innerHTML = "0";
     }
-    
-	// Vuelve a cargar el popup para que el producto desaparezca de la lista
-	mostrarPopup();
+
+    // Vuelve a cargar el popup para que el producto desaparezca de la lista
+    mostrarPopup();
 }
 
 // ... (Resto de las funciones: relacionarMesaPedido y crearPedido, que siguen pendientes) ...
 
 function relacionarMesaPedido(pedidoId) {
-	alert(`Lógica para seleccionar mesa y relacionarla con Pedido N°${pedidoId}`);
+    alert(`Lógica para seleccionar mesa y relacionarla con Pedido N°${pedidoId}`);
 }
+
 
 async function crearPedido() {
     try {
-        const now = new Date();
-
-        // Construir el objeto Pedido a enviar
         const pedidoData = {
-            fechyHoraDePedido: now.toISOString(),
-            fechyHoraDeEntrega: "", // o estimar una hora futura
-            estado: "En Preparación",
-            tiempoEstimado: "20min",
-            empleado: { id: 1 }, // por ahora fijo, luego se puede setear dinámicamente
-            lista_Productos: [],
-            lista_Mesas: []
+            empleado: { id: 1 },
+            Lista_Productos: [],
+            Lista_Mesas: []
         };
 
-        // Agregar productos seleccionados
+        // Productos
         for (let producto of allProducts) {
             const cantidad = shoppingCart[producto.id] || 0;
             if (cantidad > 0) {
-                pedidoData.lista_Productos.push({ id: producto.id });
+                pedidoData.Lista_Productos.push({
+                    id: producto.id,
+                    cantidad: cantidad  // ← Agrega esto
+                });
             }
         }
 
-        // Agregar mesa seleccionada
+        // Mesa
         const mesaSeleccionada = document.getElementById("numero-mesa-display").textContent;
         if (mesaSeleccionada && mesaSeleccionada !== "0") {
-            pedidoData.lista_Mesas.push({ id: parseInt(mesaSeleccionada) });
+            pedidoData.Lista_Mesas.push({ id: parseInt(mesaSeleccionada) });
         }
-		console.log(pedidoData)
-        // Enviar al backend
+
+        console.log("Enviando pedidoData:", pedidoData);
+
         const response = await fetch("http://localhost:8080/pedidos", {
             method: "POST",
             headers: {
@@ -388,18 +386,20 @@ async function crearPedido() {
             body: JSON.stringify(pedidoData)
         });
 
+        console.log("Status POST /pedidos:", response.status);
+
         const data = await response.json();
-		console.log(data)
+        console.log("Respuesta backend:", data);
+
         if (data.success) {
             alert("✅ Pedido guardado correctamente en la base de datos");
-            cerrarPopup();
-            // Limpia el carrito o actualiza la vista
         } else {
-            alert("❌ Error al guardar pedido: " + data.message);
+            alert("❌ Error al guardar pedido: " + (data.message || "Error desconocido"));
         }
-
     } catch (error) {
         console.error("Error al crear pedido:", error);
         alert("Ocurrió un error al intentar guardar el pedido.");
     }
+
+   
 }
