@@ -72,7 +72,7 @@ public class PedidosController {
 		pedido.setFechyHoraDeEntrega(entregaEstimada.format(formatter));
 
 		// Estado y tiempo estimado como en los datos iniciales
-		pedido.setEstado("En Preparación");
+		pedido.setEstado("Pendiente");
 		pedido.setTiempoEstimado("30 minutos");
 
 		// 👉 Si querés permitir que el frontend mande otro estado/tiempo, podrías
