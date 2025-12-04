@@ -1,0 +1,18 @@
+{
+  "numero": 1033,
+  "empleado": {
+    "id": 1
+  },
+  "tiempoEstimado": "30 minutos",
+  "fechyHoraDeEntrega": "2025-12-04 13:00:00",
+  "fechyHoraDePedido": "2025-12-04 12:30:00",
+  "estado": "En Preparación",
+  "lista_Productos": [
+    {
+      "id": 1
+    },
+    {
+      "id": 7
+    }
+  ]
+}

@@ -391,7 +391,7 @@ async function crearPedido() {
         const data = await response.json();
         console.log("Respuesta backend:", data);
 
-        if (data.success) {
+        if (data.message === "Guardado") {
             alert("✅ Pedido guardado correctamente en la base de datos");
         } else {
             alert("❌ Error al guardar pedido: " + (data.message || "Error desconocido"));

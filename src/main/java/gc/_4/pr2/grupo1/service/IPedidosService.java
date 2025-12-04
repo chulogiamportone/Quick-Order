@@ -13,5 +13,6 @@ public interface IPedidosService {
 	public void eliminarPorId(Long id);
 	boolean existe(Long id);
 	Long obtenerProximoNumero();
+    void actualizarEstado(Long pedidoId, String nuevoEstado);
 	
 }

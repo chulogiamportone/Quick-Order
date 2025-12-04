@@ -115,4 +115,21 @@ public class PedidosServiceImp implements IPedidosService {
         Long ultimoNumero = repo.findMaxNumero();
         return (ultimoNumero == null) ? 1L : ultimoNumero + 1;
     }
+
+
+
+
+    @Transactional
+    public void actualizarEstado(Long pedidoId, String nuevoEstado) {
+        Pedidos pedido = repo.findById(pedidoId)
+            .orElseThrow(() -> new RuntimeException("Pedido no encontrado: " + pedidoId));
+
+        // <-- SOLO CAMBIAMOS ESTO:
+        pedido.setEstado(nuevoEstado);
+
+        // IMPORTANTE: no tocar colecciones (lista_productos, lista_mesas, empleado, etc.)
+        // Evitamos cualquier modificación que provoque re-inserts en la tabla intermedia.
+
+        repo.save(pedido);
+    }
 }

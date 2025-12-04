@@ -251,7 +251,7 @@ async function mostrarPopup(a) {
     console.log("Pedido encontrado:", pedido);
     console.log("lista_Productos:", pedido.lista_Productos);
     console.log("Lista_Productos:", pedido.Lista_Productos);
-    
+
     if (pedido.id == a) { // Procesar solo el pedido seleccionado
       // Normalizamos la propiedad de productos
       pedido.productos = pedido.lista_Productos || pedido.Lista_Productos || [];
@@ -504,20 +504,16 @@ async function actualizarEstadoPedido(pedidoId, nuevoEstado) {
     return;
   }
 
-  const datosActualizacion = {
-    id: pedidoId,
-    estado: nuevoEstado
-  };
-
   try {
-    // Asume que RUTA_ACTUALIZACION_PEDIDO está definida globalmente
-    const response = await fetch(RUTA_ACTUALIZACION_PEDIDO, {
+    const response = await fetch(`/pedidos/${pedidoId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       },
-      body: JSON.stringify(datosActualizacion)
+      body: JSON.stringify({
+        estado: nuevoEstado   // Solo enviamos el estado, el id va en la URL
+      })
     });
 
     if (!response.ok) {
@@ -527,14 +523,17 @@ async function actualizarEstadoPedido(pedidoId, nuevoEstado) {
 
     alert(`✅ Pedido N°${pedidoId} actualizado a "${nuevoEstado}".`);
 
-    // Cierra el popup (llama a recargarListadoPedidos)
-    cerrarPopup();
+    // Actualiza el listado, o cierra popup si lo usás
+    if (typeof cerrarPopup === "function") {
+      cerrarPopup();
+    }
 
   } catch (error) {
     console.error("Error al actualizar el estado del pedido:", error);
     alert(`❌ Error al actualizar el estado: ${error.message || 'Verifique la conexión al servidor.'}`);
   }
 }
+
 
 function cerrarPopup() {
   const popupContenedor = document.getElementById("popup2");
