@@ -37,6 +37,5 @@ public class PedidosControllerIntegrationTest {
                 .andExpect(jsonPath("$.data.id").exists())
                 .andExpect(jsonPath("$.data.empleado.id").value(1))
                 .andExpect(jsonPath("$.data.Lista_Productos").isArray());
-
     }
 }

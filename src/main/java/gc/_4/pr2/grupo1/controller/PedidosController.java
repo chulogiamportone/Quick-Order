@@ -4,10 +4,12 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +31,9 @@ import gc._4.pr2.grupo1.service.IPedidosService;
 public class PedidosController {
 	@Autowired
 	private IPedidosService service;
+
+	@Autowired
+	private gc._4.pr2.grupo1.service.IEmpleadoService empleadoService;
 
 	@Autowired
 	private gc._4.pr2.grupo1.service.IProductosService productosService;
@@ -104,11 +109,25 @@ public class PedidosController {
 		return new ResponseDTO<>(true, "Guardado", guardado);
 	}
 
-	@PutMapping("/pedidos")
-	public ResponseDTO<?> actualizarNuevoPedidos(@RequestBody Pedidos pedidosDesdeElServicio) {
-		return service.existe(pedidosDesdeElServicio.getId())
-				? new ResponseDTO<>(true, "Modificado", service.guardar(pedidosDesdeElServicio))
-				: new ResponseDTO<>(false, "Este elemento no existe, utilice el POST");
+	@PutMapping(value = "/pedidos/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseDTO<?> actualizarEstadoPedido(@PathVariable Long id, @RequestBody Map<String, Object> body) {
+		// leer estado del JSON recibido
+		Object estadoObj = body.get("estado");
+		if (estadoObj == null) {
+			return new ResponseDTO<>(false, "Falta campo 'estado' en el body.");
+		}
+		String nuevoEstado = estadoObj.toString();
+
+		if (!service.existe(id)) {
+			return new ResponseDTO<>(false, "El pedido con ID " + id + " no existe.");
+		}
+
+		try {
+			service.actualizarEstado(id, nuevoEstado);
+			return new ResponseDTO<>(true, "Estado actualizado.");
+		} catch (Exception ex) {
+			return new ResponseDTO<>(false, "Error al actualizar: " + ex.getMessage());
+		}
 	}
 
 	@DeleteMapping("/pedidos/{id}")
